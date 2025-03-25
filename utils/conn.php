@@ -1,17 +1,10 @@
 <?php
-
-    $hostname = "phpmyadmin.home.ddns.gicorada.com";
-    $username = "tommasin";
-    $password  = "TommasinPsw";
+    $hostname = "localhost";
+    $username = "phpmyadmin";
+    $password  = "dietpi";
     $dbname = "Polisportiva";
 
-    $conn = new mysqli($hostname, $username, $password, $dbname) or 
-    die("connection error!");
-
-
-
+    $conn = new mysqli($hostname, $username, $password, $dbname) or die("connection error!");
 
     echo "connection approved!";
-
-
 ?>

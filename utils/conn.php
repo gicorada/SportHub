@@ -8,6 +8,10 @@
         $password  = "dietpi";
         $dbname = "Polisportiva";
     } else {
+        ini_set('display_errors', '1');
+        ini_set('display_startup_errors', '1');
+        error_reporting(E_ALL);
+
         $hostname = "localhost";
         $username = "root";
         $password  = "";
@@ -15,6 +19,4 @@
     }
 
     $conn = new mysqli($hostname, $username, $password, $dbname) or die("connection error!");
-
-    echo "connection approved!";
 ?>

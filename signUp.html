@@ -11,12 +11,26 @@
 <body>
     <h1>SIGN UP</h1>
     <form action="./utils/signupUser.php" method="POST">
+
+        
+        <div id="emailContainer">
+            <input type="text" name="CF" id="CF" placeholder="Codice Fiscale..." required>
+        </div>
+
+        <div id="emailContainer">
+            <input type="email" name="Email" id="email" placeholder="Email..." required>
+        </div>
+
         <div id="usernameContainer">
-            <input type="text" name="username" id="username" placeholder="Username..." required>
+            <input type="text" name="Nome" id="nome" placeholder="Nome..." required>
+        </div>
+
+        <div id="usernameContainer">
+            <input type="text" name="Cognome" id="cognome" placeholder="Cognome..." required>
         </div>
 
         <div id="passwordContainer">
-            <input type="password" name="password" id="password" placeholder="Password..." required>
+            <input type="password" name="Password" id="password" placeholder="Password..." required>
         </div>
 
         <div class="submitContainer">

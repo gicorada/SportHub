@@ -15,7 +15,13 @@
         $hostname = "localhost";
         $username = "root";
         $password  = "";
-        $dbname = "Polisportiva";
+
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            // Su Windows, MySQL su XAMPP non permette l'uso di database con maiuscole
+            $dbname = "polisportiva";
+        } else {
+            $dbname = "Polisportiva";
+        }
     }
 
     $conn = new mysqli($hostname, $username, $password, $dbname) or die("connection error!");

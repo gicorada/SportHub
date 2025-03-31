@@ -2,6 +2,11 @@
 
     include 'conn.php';
 
+    if(!isset($_SESSION("Email"))){
+        header("../login.html");
+        exit();
+    }
+
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -20,7 +25,6 @@
         if(password_verify($Password, $Password_DB)){
             session_start();
             $_SESSION['Email'] = $Email;
-            $_SESSION['Password'] = $Password;
             
             header('Location: ../homepage.html');
         }else{

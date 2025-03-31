@@ -2,7 +2,7 @@
 
     include 'conn.php';
 
-    if(!isset($_SESSION("Email"))){
+    if(!isset($_SESSION["Email"])){
         header("../login.html");
         exit();
     }

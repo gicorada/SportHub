@@ -1,5 +1,11 @@
 <?php
     include 'conn.php';
+
+    if(isset($_SESSION["Email"])){
+        header("Location: ../homepage.html");
+        exit();
+    }
+    
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $CF = $_POST['CF'];
@@ -20,9 +26,5 @@
             echo 'Utente creato con successo';
             header('Location: ../login.html');
         }
-
-        
     }
-
-
 ?>

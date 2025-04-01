@@ -46,13 +46,14 @@ nav a:hover {
     border-radius: 5px;
 }
 
-/* Sezione principale della pagina */
 main {
+    position: relative;
     padding: 2rem;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 6rem;
 }
 
 /* Titolo principale della home page */
@@ -79,13 +80,14 @@ footer {
     color: white;
     text-align: center;
     padding: 1rem;
-    position: relative;
+    position: absolute;
     bottom: 0;
     width: 100%;
-}
 
-footer p {
-    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 /* Media Queries per dispositivi mobili */

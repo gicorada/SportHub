@@ -1,15 +1,13 @@
 <?php
-
     include 'conn.php';
+    session_start();
 
-    if(!isset($_SESSION["Email"])){
-        header("../login.html");
+    if(isset($_SESSION["Email"])){
+        header("Location: ../pages/dashboard.php");
         exit();
     }
 
-
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
         $Email = htmlentities($_POST['Email']);
         $Password = htmlentities($_POST['Password']);
 
@@ -22,16 +20,26 @@
 
         $Password_DB = $row['Password'];
 
-        if(password_verify($Password, $Password_DB)){
-            session_start();
+        if(password_verify($Password, $Password_DB)) {
             $_SESSION['Email'] = $Email;
-            
+
+            $stmt = $conn->prepare("SELECT N.Carica FROM PERSONA P JOIN NOMINA N ON (P.CF = N.Persona) WHERE P.Email = ?");
+            $stmt->bind_param("s", $Email);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $rows = $result->fetch_all();
+
+            $ruoli = [];
+            foreach($rows as $ruolo) {
+                array_push($ruoli, $ruolo[0]);
+            }
+
+            $_SESSION['ruoli'] = $ruoli;
+
             header('Location: ../homepage.html');
-        }else{
+        } else {
             echo "Invalid credentials";
         }   
-
-
-    }   
-
+    }
 ?>

@@ -37,6 +37,15 @@
 
             $_SESSION['ruoli'] = $ruoli;
 
+            $stmt = $conn->prepare("SELECT CF FROM PERSONA P WHERE P.Email = ?");
+            $stmt->bind_param("s", $Email);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+
+            $_SESSION['CF'] = $row['CF'];
+
             header('Location: ../homepage.html');
         } else {
             echo "Invalid credentials";

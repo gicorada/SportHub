@@ -1,22 +1,10 @@
-/* Reset di base per garantire uniformità tra i browser */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 /* Impostazioni generali del corpo della pagina */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 100vh;
-    padding: 0;
 }
 
 /* Titolo della pagina di login */

@@ -3,7 +3,7 @@
     session_start();
 
     if(isset($_SESSION["Email"])){
-        header("Location: ../pages/dashboard.php");
+        header("Location: ../dashboard.php");
         exit();
     }
 

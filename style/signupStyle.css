@@ -69,6 +69,23 @@ input[type="email"]:focus {
 .submitContainer input[type="submit"]:hover {
     background-color: #555;
 }
+/* Bottone home page*/
+
+.button1{
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button1:hover {
+    background-color: #555;
+}
 
 /* Media Queries per dispositivi mobili */
 @media (max-width: 768px) {

@@ -1,6 +1,5 @@
 <?php
 	include './utils/verifyAndStartSession.php';
-	//include './utils/conn.php';
 
 	$ruoli = $_SESSION["ruoli"];
 ?>
@@ -12,7 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="./style/dashboard.css">
 	<link rel="stylesheet" href="./style/base.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    <title>SportHub Dashboard</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>SportHub Dashboard</title>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
 		<?php endif ?>
 
 		<?php if(in_array('Socio', $ruoli) || in_array('Allenatore', $ruoli)): ?>
-			<a href="#" class="dashboardButton">
+			<a href="./pages/gestisciPrenotazioni.php" class="dashboardButton">
 				<i class="fa fa-calendar"></i>
 				<h3>Gestisci le prenotazioni</h3>
 			</a>

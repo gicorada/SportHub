@@ -35,9 +35,7 @@ form {
 
 
 /* Stile per gli input */
-input[type="text"],
-input[type="password"],
-input[type="email"] {
+input, select {
     width: 100%;
     padding: 0.8rem;
     font-size: 1rem;
@@ -46,9 +44,7 @@ input[type="email"] {
     margin-top: 0.5rem;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="email"]:focus {
+input:focus, select:focus {
     border-color: #333;
     outline: none;
 }
@@ -97,8 +93,7 @@ input[type="email"]:focus {
         padding: 1.5rem;
     }
 
-    input[type="text"],
-    input[type="password"] {
+    input {
         padding: 0.7rem;
         font-size: 0.9rem;
     }

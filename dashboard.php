@@ -23,7 +23,7 @@
 		</a>
 
 		<?php if(in_array('Socio', $ruoli) || in_array('Allenatore', $ruoli) || in_array('Atleta', $ruoli)): ?>
-			<a href="#" class="dashboardButton">
+			<a href="./pages/prenotaCampo.php" class="dashboardButton">
 				<i class="fa fa-futbol-o"></i>
 				<h3>Prenota un campo</h3>
 			</a>
@@ -47,7 +47,7 @@
 		</a>
 
 		<?php if(in_array('Presidente', $ruoli) || in_array('Consigliere', $ruoli) || in_array('Socio', $ruoli)): ?>
-			<a href="#" class="dashboardButton">
+			<a href="./pages/gestisciCampi.php" class="dashboardButton">
 				<i class="fa fa-ticket"></i>
 				<h3>Gestisci i campi</h3>
 			</a>

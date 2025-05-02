@@ -17,58 +17,58 @@
 
 <body>
 	<div class="dashboardButtonContainer">
-		<a href="./pages/visualizzaAssemblee.php" class="dashboardButton">
+		<a href="./pages/assemblee/visualizza.php" class="dashboardButton">
 			<i class="fa fa-calendar"></i>
 			<h3>Visualizza assemblee</h3>	
 		</a>
 
 		<?php if(in_array('Socio', $ruoli) || in_array('Allenatore', $ruoli) || in_array('Atleta', $ruoli)): ?>
-			<a href="./pages/prenotaCampo.php" class="dashboardButton">
+			<a href="./pages/prenotazioni/prenota.php" class="dashboardButton">
 				<i class="fa fa-futbol-o"></i>
 				<h3>Prenota un campo</h3>
 			</a>
 		<?php endif ?>
 
 		<?php if(in_array('Socio', $ruoli) || in_array('Allenatore', $ruoli)): ?>
-			<a href="./pages/gestisciPrenotazioni.php" class="dashboardButton">
+			<a href="./pages/prenotazioni/gestisci.php" class="dashboardButton">
 				<i class="fa fa-calendar"></i>
 				<h3>Gestisci le prenotazioni</h3>
 			</a>
 		<?php endif ?>
 
-		<a href="./pages/gestisciDati.php" class="dashboardButton">
+		<a href="./pages/private/datiPersonali.php" class="dashboardButton">
 			<i class="fa fa-user"></i>
 			<h3>Gestisci i tuoi dati</h3>
 		</a>
 
-		<a href="./pages/visualizzaAtti.php" class="dashboardButton">
+		<a href="./pages/atti/visualizza.php" class="dashboardButton">
 			<i class="fa fa-file-text"></i>
 			<h3>Visualizza gli atti</h3>
 		</a>
 
 		<?php if(in_array('Presidente', $ruoli) || in_array('Consigliere', $ruoli) || in_array('Socio', $ruoli)): ?>
-			<a href="./pages/gestisciCampi.php" class="dashboardButton">
+			<a href="./pages/admin/gestisciCampi.php" class="dashboardButton">
 				<i class="fa fa-ticket"></i>
 				<h3>Gestisci i campi</h3>
 			</a>
 		<?php endif ?>
 
 		<?php if(in_array('Presidente', $ruoli) || in_array('Consigliere', $ruoli) || in_array('Socio', $ruoli)): ?>
-			<a href="#" class="dashboardButton">
+			<a href="./pages/admin/gestisciSport.php" class="dashboardButton">
 				<i class="fa fa-futbol-o"></i>
 				<h3>Gestisci gli sport</h3>
 			</a>
 		<?php endif ?>
 
 		<?php if(in_array('Presidente', $ruoli) || in_array('Consigliere', $ruoli) || in_array('Socio', $ruoli)): ?>
-			<a href="#" class="dashboardButton">
+			<a href="./pages/admin/gestisciAttivita.php" class="dashboardButton">
 				<i class="fa fa-cogs"></i>
 				<h3>Gestisci le attività</h3>
 			</a>
 		<?php endif ?>
 
 		<?php if(in_array('Presidente', $ruoli) || in_array('Consigliere', $ruoli) || in_array('Socio', $ruoli)): ?>
-			<a href="#" class="dashboardButton">
+			<a href="./pages/admin/gestisciTornei.php" class="dashboardButton">
 				<i class="fa fa-trophy"></i>
 				<h3>Gestisci i tornei</h3>
 			</a>

@@ -1,6 +1,6 @@
 <?php
-    include 'conn.php';
-	include 'verifyAndStartSession.php';
+    include '../conn.php';
+	include '../verifyAndStartSession.php';
 
 	$ruoli = $_SESSION["ruoli"];
 	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
@@ -8,30 +8,15 @@
 	}
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-		if(empty($_POST['codice']) || empty($_POST["sport"])) {
+		if(empty($_POST['codice'])) {
 			die("Necessario fornire i dati");
 		}
 
         $codice = $_POST['codice'];
-		$sport = $_POST['sport'];
 
-		$sportQuery = "SELECT Nome FROM SPORT";
-		$sportResult = $conn->query($sportQuery);
-
-		$sportFound = false;
-		foreach($sportResult as $sportRow) {
-			if($sportRow['Nome'] == $sport) {
-				$sportFound = true;
-				break;
-			}
-		}
-		if (!$sportFound) {
-			die('Sport non presente nella polisportiva');
-		}
-
-		$sql = "INSERT INTO CAMPO(Codice, Sport) VALUES (?, ?)";
+		$sql = "DELETE FROM CAMPO WHERE Codice = ?";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("ss", $codice, $sport);
+		$stmt->bind_param("s", $codice);
 		$stmt->execute();
 
         if($conn->affected_rows != 0) {

@@ -1,6 +1,6 @@
 <?php
-include '../utils/conn.php';
-include '../utils/verifyAndStartSession.php';
+include '../../utils/conn.php';
+include '../../utils/verifyAndStartSession.php';
 
 $query = "SELECT NumProtocollo, Anno, Data, Oggetto, ODG, Testo FROM ATTO";
 
@@ -19,7 +19,7 @@ $result = $conn->query($query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/base.css">
+    <link rel="stylesheet" href="../../style/base.css">
     <title>Visualizza gli atti</title>
 </head>
 

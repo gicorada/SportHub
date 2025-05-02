@@ -1,6 +1,6 @@
 <?php
-include '../utils/conn.php';
-include '../utils/verifyAndStartSession.php';
+include '../../utils/conn.php';
+include '../../utils/verifyAndStartSession.php';
 
 $CF = $_SESSION['CF'];
 $ruoli = $_SESSION['ruoli'];
@@ -38,15 +38,15 @@ if(in_array('Atleta', $ruoli)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/signupStyle.css">
-    <link rel="stylesheet" href="../style/base.css">
+    <link rel="stylesheet" href="../../style/signupStyle.css">
+    <link rel="stylesheet" href="../../style/base.css">
     <title>Gestisci i tuoi dati</title>
 </head>
 
 <body>
     <h1>Il tuo profilo</h1>
 	<h2>Modifica un campo per aggiornare i tuoi dati</h2>
-    <form action="../utils/updateProfilo.php" method="POST">
+    <form action="../../utils/updateProfilo.php" method="POST">
 		<label for="nome">Nome</label>
 		<input type="text" name="nome" id="nome" placeholder="Nome" value="<?= $nome ?>" required>
 

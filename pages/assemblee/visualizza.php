@@ -1,6 +1,6 @@
 <?php
-include "../utils/conn.php";
-include "../utils/verifyAndStartSession.php";
+include "../../utils/conn.php";
+include "../../utils/verifyAndStartSession.php";
 
 $query = "SELECT Codice, Data, ODG, Descrizione, CONCAT(P.Nome, ' ', P.Cognome) as Convocatore, P_A.Persona as Partecipa
 			FROM ASSEMBLEA A
@@ -19,14 +19,14 @@ $result = $stmt->get_result();
 	<head>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.js"></script>
-		<link rel="stylesheet" href="../style/base.css">
+		<link rel="stylesheet" href="../../style/base.css">
 	</head>
 	<body>
 		<main>
 			<div id="ec"></div>
 
 			<h1>Segna la tua partecipazione</h1>
-			<form action="../utils/partecipaAssemblea.php" method="POST">
+			<form action="../../utils/assemblee/partecipa.php" method="POST">
 				<label for="NumeroAssemblea">Assemblea</label>
 				<select name="NumeroAssemblea" id="assemblea" required>
 					<option value="">-- Seleziona --</option>

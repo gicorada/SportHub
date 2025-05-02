@@ -1,6 +1,6 @@
 <?php
-    include 'conn.php';
-	include 'verifyAndStartSession.php';
+    include '../conn.php';
+	include '../verifyAndStartSession.php';
 
 	$ruoli = $_SESSION['ruoli'];
 	$CF = $_SESSION['CF'];

@@ -6,8 +6,8 @@ APPROVAZIONE DELLE PRENOTAZIONI (FORM CON SELECT?)
 -->
 
 <?php
-include "../utils/conn.php";
-include "../utils/verifyAndStartSession.php";
+include "../../utils/conn.php";
+include "../../utils/verifyAndStartSession.php";
 
 $query = "SELECT ID, Prenotante, CONCAT(PE.Nome, ' ', PE.Cognome) as NomePrenotante, Campo, Sport, DataInizio, Convalidatore, Attivita
 			FROM PRENOTAZIONE PR
@@ -28,14 +28,14 @@ $result = $stmt->get_result();
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.js"></script>
-		<link rel="stylesheet" href="../style/base.css">
+		<link rel="stylesheet" href="../../style/base.css">
         <title>Gestisci prenotazioni</title>
     </head>
     <body>
 		<div id="ec"></div>
         
 		<h1>Segna la tua partecipazione</h1>
-		<form action="../utils/convalidaPrenotazione.php" method="POST">
+		<form action="../../utils/convalidaPrenotazione.php" method="POST">
 			<label for="NumeroPrenotazione">Assemblea</label>
 			<select name="NumeroPrenotazione" id="prenotazione" required>
 				<option value="">-- Seleziona --</option>

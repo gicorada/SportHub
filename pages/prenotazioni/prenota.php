@@ -6,8 +6,8 @@ FORM PRENOTAZIONE
 
 -->
 <?php
-    include '../utils/verifyAndStartSession.php';
-    include "../utils/conn.php";
+    include '../../utils/verifyAndStartSession.php';
+    include "../../utils/conn.php";
 
     $query = "SELECT * FROM CAMPO";
 
@@ -30,7 +30,7 @@ FORM PRENOTAZIONE
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>PRENOTA IL TUO CAMPO</title>
 
-        <link rel="stylesheet" href="../style/prenotazione.css">
+        <link rel="stylesheet" href="../../style/prenotazione.css">
     </head>
     <body>    
         <form action="" method="post">

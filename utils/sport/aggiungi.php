@@ -1,6 +1,6 @@
 <?php
-    include 'conn.php';
-	include 'verifyAndStartSession.php';
+    include '../conn.php';
+	include '../verifyAndStartSession.php';
 
 	$ruoli = $_SESSION["ruoli"];
 	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
@@ -8,19 +8,19 @@
 	}
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-		if(empty($_POST['codice'])) {
-			die("Necessario fornire i dati");
+		if(empty($_POST['nome'])) {
+			die('Necessario fornire i dati');
 		}
 
-        $codice = $_POST['codice'];
+        $nome = $_POST['nome'];
 
-		$sql = "DELETE FROM CAMPO WHERE Codice = ?";
+		$sql = "INSERT INTO SPORT(Nome) VALUES (?)";
 		$stmt = $conn->prepare($sql);
-		$stmt->bind_param("s", $codice);
+		$stmt->bind_param("s", $nome);
 		$stmt->execute();
 
         if($conn->affected_rows != 0) {
-            header('Location: ../pages/gestisciCampi.php');
+            header('Location: ../pages/admin/gestisciSport.php');
         } else die ("Inserimento del campo non riuscito");
     } else die("Devi fornire i dati tramite POST");
 ?>

@@ -16,7 +16,7 @@ FORM AGGIUNTA ASSEMBLEA
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestione Assemblee</title>
-    <link rel="stylesheet" href="../style/base.css">
+    <link rel="stylesheet" href="../../style/base.css">
 </head>
 
 <body>
@@ -41,7 +41,7 @@ FORM AGGIUNTA ASSEMBLEA
 
 
 <?php
-    include "../utils/conn.php";
+    include "../../utils/conn.php";
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         $data = $_POST["data"];

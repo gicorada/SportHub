@@ -2,7 +2,7 @@
     session_start();
     if(!isset($_SESSION["Email"])){
         session_abort();
-        header("Location: ../login.html");
+        header("Location: ".__DIR__ ."/../login.html");
         exit();
     };
 ?>

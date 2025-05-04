@@ -24,70 +24,73 @@ $result = $stmt->get_result();
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.js"></script>
 </head>
-<body class="bg-gray-100 text-gray-800">
-	<header class="bg-white shadow-md p-4 mb-8 sticky top-0 z-10">
-		<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between">
-			<h1 class="text-3xl font-bold text-gray-800">Gestione Assemblee</h1>
-			
-			<a href="../../dashboard.php" class="mt-3 sm:mt-0 inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors">
-			<i class="fa fa-arrow-left"></i>
-			<span class="text-lg">Torna alla dashboard</span>
-			</a>
-		</div>
-	</header>
+<body class="bg-gray-50">
+	<!-- Header -->
+    <header class="bg-blue-600 text-white p-4 sticky top-0 z-10 shadow-md">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="/path/to/logo.png" alt="Logo" class="h-8 w-auto">
+                <h1 class="text-2xl font-bold">SportHub - Visualizza le Assemblee</h1>
+            </div>
+            <nav class="flex items-center gap-6">
+                <a href="../../dashboard.php" class="hover:text-gray-200">Dashboard</a>
+                <a href="#" class="hover:text-gray-200">Assemblee</a>
+                <a href="../prenotazioni/prenota.php" class="hover:text-gray-200">Prenotazioni</a>
+                <a href="../private/datiPersonali.php" class="hover:text-gray-200">Dati Personali</a>
+                <a href="../../logout.php" class="text-red-400 hover:text-red-500">Logout</a>
+            </nav>
+        </div>
+    </header>
 
-	<main class="max-w-4xl mx-auto px-6 pb-12 space-y-12">
-
+	<main class="max-w-7xl mx-auto p-6">
 		<div class="bg-white p-6 rounded-xl shadow-md space-y-4">
 			<div class="flex justify-between items-center">
 				<h1 class="text-2xl font-bold">Calendario Assemblee</h1>
 
 				<div>
-				<label for="calendar-view" class="mr-2 font-medium">Vista</label>
-				<select id="calendar-view" class="border-gray-300 rounded-md shadow-sm">
-					<option value="timeGridDay">Giorno</option>
-					<option value="timeGridWeek" selected>Settimana</option>
-					<option value="dayGridMonth">Mese</option>
-				</select>
+					<label for="calendar-view" class="mr-2 font-medium">Vista</label>
+					<select id="calendar-view" class="border-gray-300 rounded-md shadow-sm">
+						<option value="timeGridDay">Giorno</option>
+						<option value="timeGridWeek" selected>Settimana</option>
+						<option value="dayGridMonth">Mese</option>
+					</select>
 				</div>
 			</div>
 
 			<div id="ec" class="rounded-md overflow-hidden"></div>
 		</div>
 
-		<div class="bg-white p-6 rounded-xl shadow-md">
-			<h2 class="text-xl font-semibold mb-4">Segna la tua partecipazione</h2>
+		<h2 class="text-3xl font-bold text-center mb-4 mt-6">Segna la tua partecipazione</h2>
 
-			<form action="../../utils/assemblee/partecipa.php" method="POST" class="space-y-6">
-				<div>
-					<label for="assemblea" class="block font-medium mb-1">Assemblea</label>
-					<select name="NumeroAssemblea" id="assemblea" required class="w-full border-gray-300 rounded-md shadow-sm">
-						<option value="">-- Seleziona --</option>
-						<?php foreach($result as $row): ?>
-							<option value="<?= $row['Codice'] ?>"><?= $row['Codice'] ?> - <?= $row["Descrizione"] ?></option>
-						<?php endforeach; ?>
-					</select>
-				</div>
+		<form action="../../utils/assemblee/partecipa.php" method="POST" class="bg-white p-6 rounded-lg shadow-md">
+			<div class="mb-4">
+				<label for="assemblea" class="block text-lg font-semibold">Assemblea</label>
+				<select name="NumeroAssemblea" id="assemblea" required class="mt-2 p-3 border rounded-md w-full">
+					<option value="">-- Seleziona --</option>
+					<?php foreach($result as $row): ?>
+						<option value="<?= $row['Codice'] ?>"><?= $row['Codice'] ?> - <?= $row["Descrizione"] ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
 
-				<div>
-					<p class="font-medium mb-2">Stato della partecipazione</p>
-					<div class="flex items-center space-x-4">
-						<label class="inline-flex items-center">
-							<input type="radio" name="Stato" value="true" id="true" required class="form-radio text-indigo-600">
-							<span class="ml-2">Partecipo</span>
-						</label>
-						<label class="inline-flex items-center">
-							<input type="radio" name="Stato" value="false" id="false" class="form-radio text-indigo-600">
-							<span class="ml-2">Non partecipo</span>
-						</label>
-					</div>
+			<div>
+				<p class="font-medium mb-2">Stato della partecipazione</p>
+				<div class="flex items-center space-x-4">
+					<label class="inline-flex items-center">
+						<input type="radio" name="Stato" value="true" id="true" required class="form-radio text-indigo-600">
+						<span class="ml-2">Partecipo</span>
+					</label>
+					<label class="inline-flex items-center">
+						<input type="radio" name="Stato" value="false" id="false" class="form-radio text-indigo-600">
+						<span class="ml-2">Non partecipo</span>
+					</label>
 				</div>
+			</div>
 
-				<div>
-					<input type="submit" value="Invia lo stato" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition">
-				</div>
-			</form>
-		</div>
+			<div>
+				<input type="submit" value="Invia lo stato" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition">
+			</div>
+		</form>
 	</main>
 
 	<script>

@@ -47,7 +47,7 @@ $result = $conn->query($query);
 			
 			<tr>
 				<td colspan="2" style="text-align: center;">
-					<button id="mostra-form">+ Aggiungi nuovo Sport</button>
+					<button id="mostra-form">+ Aggiungi nuova Attività</button>
 				</td>
 			</tr>
 			<tr id="form-row" style="display: none;"></tr>
@@ -61,7 +61,7 @@ $result = $conn->query($query);
 			formRow.innerHTML = `
 				<td colspan="2">
 					<form action="../../utils/attivita/aggiungi.php" method="POST" style="display: flex; gap: 1rem; justify-content: center;">
-						<input type="text" name="nome" placeholder="Sport" required>
+						<input type="text" name="nome" placeholder="Attività" required>
 						<button type="submit">Aggiungi</button>
 					</form>
 				</td>

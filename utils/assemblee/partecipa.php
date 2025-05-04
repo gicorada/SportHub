@@ -1,6 +1,6 @@
 <?php
-    include 'conn.php';
-	include 'verifyAndStartSession.php';
+    include '../conn.php';
+	include '../verifyAndStartSession.php';
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		if(empty($_POST['NumeroAssemblea']) || empty($_POST['Stato'])) {

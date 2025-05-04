@@ -15,75 +15,125 @@ $result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
-<html>
-	<head>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.css">
-		<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.js"></script>
-		<link rel="stylesheet" href="../../style/base.css">
-	</head>
-	<body>
-		<main>
-			<div id="ec"></div>
+<html lang="it">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Partecipazione Assemblee</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+	<header class="bg-white shadow-md p-4 mb-8 sticky top-0 z-10">
+		<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between">
+			<h1 class="text-3xl font-bold text-gray-800">Gestione Assemblee</h1>
+			
+			<a href="../../dashboard.php" class="mt-3 sm:mt-0 inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors">
+			<i class="fa fa-arrow-left"></i>
+			<span class="text-lg">Torna alla dashboard</span>
+			</a>
+		</div>
+	</header>
 
-			<h1>Segna la tua partecipazione</h1>
-			<form action="../../utils/assemblee/partecipa.php" method="POST">
-				<label for="NumeroAssemblea">Assemblea</label>
-				<select name="NumeroAssemblea" id="assemblea" required>
-					<option value="">-- Seleziona --</option>
-					<?php foreach($result as $row): ?>
-						<option value="<?= $row['Codice'] ?>"><?= $row['Codice'] ?> - <?= $row["Descrizione"] ?></option>
-					<?php endforeach; ?>
+	<main class="max-w-4xl mx-auto px-6 pb-12 space-y-12">
+
+		<div class="bg-white p-6 rounded-xl shadow-md space-y-4">
+			<div class="flex justify-between items-center">
+				<h1 class="text-2xl font-bold">Calendario Assemblee</h1>
+
+				<div>
+				<label for="calendar-view" class="mr-2 font-medium">Vista</label>
+				<select id="calendar-view" class="border-gray-300 rounded-md shadow-sm">
+					<option value="timeGridDay">Giorno</option>
+					<option value="timeGridWeek" selected>Settimana</option>
+					<option value="dayGridMonth">Mese</option>
 				</select>
-				<br>
+				</div>
+			</div>
 
-				<label>Stato della partecipazione</label><br>
-				<input type="radio" name="Stato" value="true" id="true" required><label for="true">Partecipo</label><br>
-				<input type="radio" name="Stato" value="false" id="false"><label for="false">Non partecipo</label><br>
+			<div id="ec" class="rounded-md overflow-hidden"></div>
+		</div>
 
-				<input type="submit" value="Invia lo stato">
+		<div class="bg-white p-6 rounded-xl shadow-md">
+			<h2 class="text-xl font-semibold mb-4">Segna la tua partecipazione</h2>
+
+			<form action="../../utils/assemblee/partecipa.php" method="POST" class="space-y-6">
+				<div>
+					<label for="assemblea" class="block font-medium mb-1">Assemblea</label>
+					<select name="NumeroAssemblea" id="assemblea" required class="w-full border-gray-300 rounded-md shadow-sm">
+						<option value="">-- Seleziona --</option>
+						<?php foreach($result as $row): ?>
+							<option value="<?= $row['Codice'] ?>"><?= $row['Codice'] ?> - <?= $row["Descrizione"] ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+
+				<div>
+					<p class="font-medium mb-2">Stato della partecipazione</p>
+					<div class="flex items-center space-x-4">
+						<label class="inline-flex items-center">
+							<input type="radio" name="Stato" value="true" id="true" required class="form-radio text-indigo-600">
+							<span class="ml-2">Partecipo</span>
+						</label>
+						<label class="inline-flex items-center">
+							<input type="radio" name="Stato" value="false" id="false" class="form-radio text-indigo-600">
+							<span class="ml-2">Non partecipo</span>
+						</label>
+					</div>
+				</div>
+
+				<div>
+					<input type="submit" value="Invia lo stato" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition">
+				</div>
 			</form>
-		</main>
+		</div>
+	</main>
 
-		<script>
-			let ec = new EventCalendar.create(document.getElementById('ec'), {
-				view: 'timeGridWeek',
-				events: [
-					<?php foreach($result as $row): ?>
-						{
-							id: <?= $row["Codice"] ?>,
-							allDay: false,
-							start: new Date("<?= $row["Data"] ?>"),
-							end: addDefaultEventDuration(new Date("<?= $row["Data"] ?>")),
-							title: "<?= $row["Descrizione"] ?>",
-							display: "auto",
-							editable: false,
-							startEditable: false,
-							durationEditable: false,
-							backgroundColor: (("<?= $row["Partecipa"] ?>" != "") ? "green" : "red"),
-							extendedProps: {partecipa: ("<?= $row["Partecipa"] ?>" != "") ? true : false}
-						},
-					<?php endforeach; ?>
-				],
-				height: "80vh",
-				nowIndicator: true,
-				eventClick: (info) => selectAssembleaWithEvent(info.event)
-			});
+	<script>
+		let ec = new EventCalendar.create(document.getElementById('ec'), {
+			view: 'timeGridWeek',
+			events: [
+				<?php foreach($result as $row): ?>
+					{
+						id: <?= $row["Codice"] ?>,
+						allDay: false,
+						start: new Date("<?= $row["Data"] ?>"),
+						end: addDefaultEventDuration(new Date("<?= $row["Data"] ?>")),
+						title: "<?= $row["Descrizione"] ?>",
+						display: "auto",
+						editable: false,
+						startEditable: false,
+						durationEditable: false,
+						backgroundColor: (("<?= $row["Partecipa"] ?>" != "") ? "green" : "red"),
+						extendedProps: {partecipa: ("<?= $row["Partecipa"] ?>" != "") ? true : false}
+					},
+				<?php endforeach; ?>
+			],
+			height: "70vh",
+			nowIndicator: true,
+			eventClick: (info) => selectAssembleaWithEvent(info.event)
+		});
 
-			function addDefaultEventDuration(date) {
-				let endDate = date;
-				endDate.setHours(endDate.getHours() + 1);
-				return endDate;
+		document.getElementById("calendar-view").addEventListener("change", function () {
+			ec.setOption("view", this.value);
+		});
+
+
+		function addDefaultEventDuration(date) {
+			let endDate = new Date(date);
+			endDate.setHours(endDate.getHours() + 1);
+			return endDate;
+		}
+
+		function selectAssembleaWithEvent(event) {
+			document.getElementById("assemblea").value = event.id;
+			if(event.extendedProps.partecipa) {
+				document.getElementById("true").checked = true;
+			} else {
+				document.getElementById("false").checked = true;
 			}
-
-			function selectAssembleaWithEvent(event) {
-				document.getElementById("assemblea").value = event.id;
-
-				if(event.extendedProps.partecipa) {
-					document.getElementById("true").checked = true;
-				} else {
-					document.getElementById("false").checked = true;
-				}
-			}
-		</script>
-	</body>
+		}
+	</script>
+</body>
 </html>

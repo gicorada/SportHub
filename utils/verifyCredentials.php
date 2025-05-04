@@ -46,7 +46,7 @@
 
             $_SESSION['CF'] = $row['CF'];
 
-            header('Location: ../homepage.html');
+            header('Location: ../dashboard.php');
         } else {
             echo "Invalid credentials";
         }   

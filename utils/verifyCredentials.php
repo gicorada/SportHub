@@ -23,7 +23,7 @@
         if(password_verify($Password, $Password_DB)) {
             $_SESSION['Email'] = $Email;
 
-            $stmt = $conn->prepare("SELECT N.Carica FROM PERSONA P JOIN NOMINA N ON (P.CF = N.Persona) WHERE P.Email = ? AND DataFine = NULL AND (CURRENT_DATE BETWEEN DataInizio AND DataFine)");
+            $stmt = $conn->prepare("SELECT N.Carica FROM PERSONA P JOIN NOMINA N ON (P.CF = N.Persona) WHERE P.Email = ? AND DataFine IS NULL OR (CURRENT_DATE BETWEEN DataInizio AND DataFine)");
             $stmt->bind_param("s", $Email);
             $stmt->execute();
 

@@ -28,7 +28,7 @@
 		<a href="./pages/private/datiPersonali.php" class="hover:text-gray-200">Dati Personali</a>
 		
 		<!-- Link di logout o altro -->
-		<a href="/logout.php" class="text-red-400 hover:text-red-500">Logout</a>
+		<a href="./utils/user/logout.php" class="text-red-400 hover:text-red-500">Logout</a>
 		</nav>
 	</div>
 	</header>

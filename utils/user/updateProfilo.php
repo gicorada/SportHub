@@ -60,7 +60,7 @@
 		var_dump($conn->affected_rows);
 
         if($conn->errno == 1062 || $conn->errno == 0) {
-            header('Location: ../pages/gestisciDati.php');
+            header('Location: /pages/private/datiPersonali.php');
         } else die ('Modifica dei dati personali non riuscita');
     } else die('Devi fornire i dati tramite POST');
 ?>

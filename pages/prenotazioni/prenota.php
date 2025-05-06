@@ -33,7 +33,7 @@ FORM PRENOTAZIONE
         <link rel="stylesheet" href="../../style/prenotazione.css">
     </head>
     <body>    
-        <form action="" method="post">
+        <form action="/utils/prenotazione/aggiungiPrenotazione.php" method="post">
             <label for="field">SCEGLI IL CAMPO</label>
 
             <select name="field" id="field">

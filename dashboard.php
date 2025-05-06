@@ -16,19 +16,19 @@
 	<div class="max-w-7xl mx-auto flex items-center justify-between">
 		<!-- Logo o nome -->
 		<div class="flex items-center gap-3">
-		<img src="/path/to/logo.png" alt="Logo" class="h-8 w-auto">
+		<img src="/assets/logo.png" alt="Logo" class="h-20 w-auto">
 		<h1 class="text-2xl font-bold">SportHub Dashboard</h1>
 		</div>
 		
 		<!-- Menu di navigazione -->
 		<nav class="flex items-center gap-6">
-		<a href="./dashboard.php" class="hover:text-gray-200">Dashboard</a>
-		<a href="./pages/assemblee/visualizza.php" class="hover:text-gray-200">Assemblee</a>
-		<a href="./pages/prenotazioni/prenota.php" class="hover:text-gray-200">Prenotazioni</a>
-		<a href="./pages/private/datiPersonali.php" class="hover:text-gray-200">Dati Personali</a>
+		<a href="/dashboard.php" class="hover:text-gray-200">Dashboard</a>
+		<a href="/pages/assemblee/visualizza.php" class="hover:text-gray-200">Assemblee</a>
+		<a href="/pages/prenotazioni/prenota.php" class="hover:text-gray-200">Prenotazioni</a>
+		<a href="/pages/private/datiPersonali.php" class="hover:text-gray-200">Dati Personali</a>
 		
 		<!-- Link di logout o altro -->
-		<a href="./utils/user/logout.php" class="text-red-400 hover:text-red-500">Logout</a>
+		<a href="/utils/user/logout.php" class="text-red-400 hover:text-red-500"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
 		</nav>
 	</div>
 	</header>
@@ -37,7 +37,7 @@
 	<main class="max-w-7xl mx-auto px-6 py-10">
 		<h1 class="text-3xl font-bold mb-8">Dashboard</h1>
 
-		<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+		<div class="grid gap-6 grid-cols-1 sm:grid-cols-4 md:grid-cols-3 xl:grid-cols-6">
 			<a href="./pages/assemblee/visualizza.php" class="dashboard-card">
 				<i class="fa fa-calendar text-indigo-600 text-4xl"></i>
 				<span class="text-lg font-medium mt-4 text-center">Visualizza assemblee</span>

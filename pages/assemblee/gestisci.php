@@ -16,7 +16,6 @@ FORM AGGIUNTA ASSEMBLEA
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestione Assemblee</title>
-    <link rel="stylesheet" href="../../style/base.css">
 </head>
 
 <body>

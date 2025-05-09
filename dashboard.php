@@ -88,7 +88,7 @@
 					<span class="text-lg font-medium mt-4 text-center">Gestisci i tornei</span>
 				</a>
 
-				<a href="#" class="dashboard-card">
+				<a href="./pages/atti/gestisci.php" class="dashboard-card">
 					<i class="fa fa-certificate text-indigo-500 text-4xl"></i>
 					<span class="text-lg font-medium mt-4 text-center">Gestisci atti e nomine</span>
 				</a>

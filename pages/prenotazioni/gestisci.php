@@ -2,7 +2,8 @@
 include "../../utils/conn.php";
 include "../../utils/verifyAndStartSession.php";
 
-$query = "SELECT ID, Prenotante, CONCAT(PE.Nome, ' ', PE.Cognome) as NomePrenotante, Campo, Sport, DataInizio, Convalidatore, Attivita
+// TODO aggiunta dataFine sul DB
+$query = "SELECT ID, Prenotante, CONCAT(PE.Nome, ' ', PE.Cognome) as NomePrenotante, Campo, Sport, DataInizio, DataFine, Convalidatore, Attivita
 			FROM PRENOTAZIONE PR
 			JOIN PERSONA PE ON (PR.Prenotante = PE.CF)
 			JOIN CAMPO C ON (PR.Campo = C.Codice);";
@@ -97,7 +98,7 @@ $result = $stmt->get_result();
                         id: <?= $row["ID"] ?>,
                         allDay: false,
                         start: new Date("<?= $row["DataInizio"] ?>"),
-                        end: addDefaultEventDuration(new Date("<?= $row["DataInizio"] ?>")),
+                        end: new Date("<?= $row["DataFine"] ?>"),
                         title: "<?= $row["NomePrenotante"]." - ".$row["Campo"]." (".$row["Sport"].")" ?>",
                         display: "auto",
                         editable: false,
@@ -116,12 +117,6 @@ $result = $stmt->get_result();
 		document.getElementById("calendar-view").addEventListener("change", function () {
 			ec.setOption("view", this.value);
 		});
-
-        function addDefaultEventDuration(date) {
-            let endDate = date;
-            endDate.setHours(endDate.getHours() + 1);
-            return endDate;
-        }
 
         function selectPrenotazioneWithEvent(event) {
             document.getElementById("prenotazione").value = event.id;

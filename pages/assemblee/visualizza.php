@@ -2,7 +2,7 @@
 include "../../utils/conn.php";
 include "../../utils/verifyAndStartSession.php";
 
-$query = "SELECT Codice, Data, ODG, Descrizione, CONCAT(P.Nome, ' ', P.Cognome) as Convocatore, P_A.Persona as Partecipa
+$query = "SELECT Codice, Data, DataFine, ODG, Descrizione, CONCAT(P.Nome, ' ', P.Cognome) as Convocatore, P_A.Persona as Partecipa
 			FROM ASSEMBLEA A
 			JOIN PERSONA P ON (A.Convocatore = P.CF)
 			LEFT JOIN PARTECIPAZIONE_ASSEMBLEA P_A ON (A.Codice = P_A.Assemblea AND ? = P_A.Persona);";
@@ -73,7 +73,7 @@ $result = $stmt->get_result();
 				</select>
 			</div>
 
-			<div>
+			<div class="mb-4">
 				<p class="font-medium mb-2">Stato della partecipazione</p>
 				<div class="flex items-center space-x-4">
 					<label class="inline-flex items-center">
@@ -102,7 +102,7 @@ $result = $stmt->get_result();
 						id: <?= $row["Codice"] ?>,
 						allDay: false,
 						start: new Date("<?= $row["Data"] ?>"),
-						end: addDefaultEventDuration(new Date("<?= $row["Data"] ?>")),
+						end: new Date("<?= $row["DataFine"] ?>"),
 						title: "<?= $row["Descrizione"] ?>",
 						display: "auto",
 						editable: false,
@@ -121,13 +121,6 @@ $result = $stmt->get_result();
 		document.getElementById("calendar-view").addEventListener("change", function () {
 			ec.setOption("view", this.value);
 		});
-
-
-		function addDefaultEventDuration(date) {
-			let endDate = new Date(date);
-			endDate.setHours(endDate.getHours() + 1);
-			return endDate;
-		}
 
 		function selectAssembleaWithEvent(event) {
 			document.getElementById("assemblea").value = event.id;

@@ -95,7 +95,7 @@
 			<?php endif ?>
 
 			<?php if(in_array('Presidente', $ruoli) || in_array('Consigliere', $ruoli) || in_array('Socio', $ruoli) || in_array('Allenatore', $ruoli)): ?>
-				<a href="#" class="dashboard-card">
+				<a href="./pages/assemblee/gestisci.php" class="dashboard-card">
 					<i class="fa fa-users text-pink-500 text-4xl"></i>
 					<span class="text-lg font-medium mt-4 text-center">Gestisci le assemblee</span>
 				</a>

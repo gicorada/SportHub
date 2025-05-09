@@ -1,64 +1,154 @@
-<!--
+<?php
+include "../../utils/conn.php";
+include "../../utils/verifyAndStartSession.php";
 
-QUI CI VANNO
-CALENDARIO CON ASSEMBLEE
-FORM AGGIUNTA ASSEMBLEA
+// TODO aggiunta dataFine sul DB
+$query = "SELECT Codice, Data, DataFine, Descrizione FROM ASSEMBLEA A;";
 
--->
+$stmt = $conn->prepare($query);
+$stmt->execute();
 
-
-
-
+$result = $stmt->get_result();
+?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestione Assemblee</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Partecipazione Assemblee</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.js"></script>
 </head>
+<body class="bg-gray-50">
+	<!-- Header -->
+    <header class="bg-blue-600 text-white p-4 sticky top-0 z-10 shadow-md">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="/assets/logo.png" alt="Logo" class="h-20 w-auto">
+                <h1 class="text-2xl font-bold">SportHub - Aggiungi Assemblee</h1>
+            </div>
+            <nav class="flex items-center gap-6">
+                <a href="/dashboard.php" class="hover:text-gray-200">Dashboard</a>
+                <a href="#" class="hover:text-gray-200">Assemblee</a>
+                <a href="/pages/prenotazioni/prenota.php" class="hover:text-gray-200">Prenotazioni</a>
+                <a href="/pages/private/datiPersonali.php" class="hover:text-gray-200">Dati Personali</a>
+                <a href="/logout.php" class="text-red-400 hover:text-red-500">Logout</a>
+            </nav>
+        </div>
+    </header>
 
-<body>
-    
+	<main class="max-w-7xl mx-auto p-6">
+		<div class="bg-white p-6 rounded-xl shadow-md space-y-4">
+			<div class="flex justify-between items-center">
+				<h1 class="text-2xl font-bold">Calendario Assemblee</h1>
 
-    <form action="" method="post">
-        <label for="data">Data Assemblea:</label>
-        <input type="date" id="data" name="data" required>
+				<div>
+					<label for="calendar-view" class="mr-2 font-medium">Vista</label>
+					<select id="calendar-view" class="border-gray-300 rounded-md shadow-sm">
+						<option value="timeGridDay">Giorno</option>
+						<option value="timeGridWeek" selected>Settimana</option>
+						<option value="dayGridMonth">Mese</option>
+					</select>
+				</div>
+			</div>
 
-        <label for="ora">Ora Assemblea:</label>
-        <input type="time" id="ora" name="ora" required>
+			<div id="ec" class="rounded-md overflow-hidden"></div>
+		</div>
 
-        <input type="submit" value="Aggiungi Assemblea">
-    </form>
+		<h2 class="text-3xl font-bold text-center mb-4 mt-6">Aggiungi un'assemblea</h2>
+        <p class="text-center mb-4">Seleziona data e ora dal calendario, o dal menu qui sotto</p>
 
+		<form action="../../utils/assemblee/aggiungi.php" method="POST" class="bg-white p-6 rounded-lg shadow-md">
+			<div class="mb-4">
+				<label for="inizio" class="block text-lg font-semibold">Inizio</label>
+				<input type="datetime-local" name="inizio" id="inizio" required class="mt-2 p-3 border rounded-md w-full">
+			</div>
 
-    <a href="visualizzaAssemblee.php"><button>Visualizza Assemblee</button></a>
+            <div class="mb-4">
+				<label for="fine" class="block text-lg font-semibold">Fine</label>
+				<input type="datetime-local" name="fine" id="fine" required class="mt-2 p-3 border rounded-md w-full">
+			</div>
 
+			<div class="mb-4">
+				<label for="odg" class="block text-lg font-semibold">Ordine del Giorno</label>
+				<textarea name="odg" id="odg" rows="4" class="mt-2 p-3 border rounded-md w-full" maxlength="200"></textarea>
+			</div>
 
+			<div class="mb-4">
+				<label for="descrizione" class="block text-lg font-semibold">Descrizione</label>
+				<textarea name="descrizione" id="descrizione" rows="4" class="mt-2 p-3 border rounded-md w-full" maxlength="100"></textarea>
+			</div>
+
+			<div>
+				<input type="submit" value="Invia lo stato" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition">
+			</div>
+		</form>
+
+        <h2 class="text-3xl font-bold text-center mb-4 mt-6">Rimuovi un'assemblea</h2>
+        <p class="text-center mb-4">Seleziona un evento dal calendario, o dal menu qui sotto</p>
+
+		<form action="../../utils/assemblee/rimuovi.php" method="POST" class="bg-white p-6 rounded-lg shadow-md">
+			<div class="mb-4">
+				<label for="codice" class="block text-lg font-semibold">Inizio</label>
+                <select name="assembleaRimuovi" id="assembleaRimuovi" required class="mt-2 p-3 border rounded-md w-full">
+                    <option value="">-- Seleziona --</option>
+                    <?php foreach($result as $row): ?>
+                        <option value="<?= $row['Codice'] ?>"><?= $row['Codice'] ?> - <?= $row["Descrizione"] ?></option>
+                    <?php endforeach; ?>
+                </select>
+			</div>
+
+			<div>
+				<input type="submit" value="Invia lo stato" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition">
+			</div>
+		</form>
+	</main>
+
+	<script>
+		let ec = new EventCalendar.create(document.getElementById('ec'), {
+			view: 'timeGridWeek',
+			events: [
+				<?php foreach($result as $row): ?>
+					{
+						id: <?= $row["Codice"] ?>,
+						allDay: false,
+						start: new Date("<?= $row["Data"] ?>"),
+						end: new Date("<?= $row["DataFine"] ?>"),
+						title: "<?= $row["Descrizione"] ?>",
+						display: "auto",
+						editable: false,
+						startEditable: false,
+						durationEditable: false,
+						backgroundColor: "darkblue",
+					},
+				<?php endforeach; ?>
+			],
+			height: "70vh",
+			nowIndicator: true,
+            eventClick: (info) => selectAssembleaWithEvent(info.event),
+            selectable: true,
+            select: (info) => selectDateTime(info),
+		});
+
+		document.getElementById("calendar-view").addEventListener("change", function () {
+			ec.setOption("view", this.value);
+		});
+
+        function selectAssembleaWithEvent(event) {
+			document.getElementById("assembleaRimuovi").value = event.id;
+		}
+
+		function selectDateTime(info) {
+            console.log(info.start.toLocaleString().slice(0, 20));
+            const timezoneOffset = new Date().getTimezoneOffset() * 60000; // Offset in milliseconds
+            const localStart = new Date(info.start.getTime() - timezoneOffset).toISOString().slice(0, 16);
+            const localEnd = new Date(info.end.getTime() - timezoneOffset).toISOString().slice(0, 16);
+
+            document.getElementById("inizio").value = localStart;
+            document.getElementById("fine").value = localEnd;
+		}
+	</script>
 </body>
 </html>
-
-
-<?php
-    include "../../utils/conn.php";
-
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $data = $_POST["data"];
-        $ora = $_POST["ora"];
-
-        $query = "INSERT INTO assemblee (data, ora) VALUES (?, ?)";
-        
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("ss", $data, $ora);
-
-        $stmt->execute();
-
-        $res = $stmt->get_result();
-
-        if($res->affected_rows == 1) {
-            echo "Assemblea aggiunta con successo!";
-        } else {
-            echo "Errore nell'aggiunta dell'assemblea.";
-            header("Location: ../gestisciAssemblee.php");
-        }
-    }

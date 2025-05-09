@@ -12,27 +12,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen">
-	<header class="bg-blue-600 text-white p-4 sticky top-0 z-10 shadow-md">
-	<div class="max-w-7xl mx-auto flex items-center justify-between">
-		<!-- Logo o nome -->
-		<div class="flex items-center gap-3">
-		<img src="/assets/logo.png" alt="Logo" class="h-20 w-auto">
-		<h1 class="text-2xl font-bold">SportHub Dashboard</h1>
-		</div>
-		
-		<!-- Menu di navigazione -->
-		<nav class="flex items-center gap-6">
-		<a href="/dashboard.php" class="hover:text-gray-200">Dashboard</a>
-		<a href="/pages/assemblee/visualizza.php" class="hover:text-gray-200">Assemblee</a>
-		<a href="/pages/prenotazioni/prenota.php" class="hover:text-gray-200">Prenotazioni</a>
-		<a href="/pages/private/datiPersonali.php" class="hover:text-gray-200">Dati Personali</a>
-		
-		<!-- Link di logout o altro -->
-		<a href="/utils/user/logout.php" class="text-red-400 hover:text-red-500"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
-		</nav>
-	</div>
-	</header>
-
+	<?php 
+		$titleHeader = "Dashboard";
+		$activeHeader = "dashboard";
+		include "./partials/header.php";
+	?>
 
 	<main class="max-w-7xl mx-auto px-6 py-10">
 		<h1 class="text-3xl font-bold mb-8">Dashboard</h1>

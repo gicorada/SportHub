@@ -20,24 +20,14 @@ $result = $stmt->get_result();
 	<script src="https://cdn.tailwindcss.com"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="bg-gray-50">
-	<!-- Header -->
-    <header class="bg-blue-600 text-white p-4 sticky top-0 z-10 shadow-md">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="/assets/logo.png" alt="Logo" class="h-20 w-auto">
-                <h1 class="text-2xl font-bold">SportHub - Aggiungi Assemblee</h1>
-            </div>
-            <nav class="flex items-center gap-6">
-                <a href="/dashboard.php" class="hover:text-gray-200">Dashboard</a>
-                <a href="#" class="hover:text-gray-200">Assemblee</a>
-                <a href="/pages/prenotazioni/prenota.php" class="hover:text-gray-200">Prenotazioni</a>
-                <a href="/pages/private/datiPersonali.php" class="hover:text-gray-200">Dati Personali</a>
-                <a href="/logout.php" class="text-red-400 hover:text-red-500">Logout</a>
-            </nav>
-        </div>
-    </header>
+	<?php 
+		$titleHeader = "Gestisci Assemblee";
+		$activeHeader = "gestisci-assemblee";
+		include "../../partials/header.php";
+	?>
 
 	<main class="max-w-7xl mx-auto p-6">
 		<div class="bg-white p-6 rounded-xl shadow-md space-y-4">
@@ -46,7 +36,7 @@ $result = $stmt->get_result();
 
 				<div>
 					<label for="calendar-view" class="mr-2 font-medium">Vista</label>
-					<select id="calendar-view" class="border-gray-300 rounded-md shadow-sm">
+					<select id="calendar-view" class="mt-2 p-2 border rounded-md">
 						<option value="timeGridDay">Giorno</option>
 						<option value="timeGridWeek" selected>Settimana</option>
 						<option value="dayGridMonth">Mese</option>
@@ -56,6 +46,8 @@ $result = $stmt->get_result();
 
 			<div id="ec" class="rounded-md overflow-hidden"></div>
 		</div>
+
+		<!-- TODO manca pagina per vedere partecipanti -->
 
 		<h2 class="text-3xl font-bold text-center mb-4 mt-6">Aggiungi un'assemblea</h2>
         <p class="text-center mb-4">Seleziona data e ora dal calendario, o dal menu qui sotto</p>
@@ -82,14 +74,14 @@ $result = $stmt->get_result();
 			</div>
 
 			<div>
-				<input type="submit" value="Invia lo stato" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition">
+				<input type="submit" value="Aggiungi l'assemblea" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition">
 			</div>
 		</form>
 
         <h2 class="text-3xl font-bold text-center mb-4 mt-6">Rimuovi un'assemblea</h2>
         <p class="text-center mb-4">Seleziona un evento dal calendario, o dal menu qui sotto</p>
 
-		<form action="../../utils/assemblee/rimuovi.php" method="POST" class="bg-white p-6 rounded-lg shadow-md">
+		<form action="/utils/assemblee/rimuovi.php" method="POST" class="bg-white p-6 rounded-lg shadow-md">
 			<div class="mb-4">
 				<label for="codice" class="block text-lg font-semibold">Inizio</label>
                 <select name="assembleaRimuovi" id="assembleaRimuovi" required class="mt-2 p-3 border rounded-md w-full">
@@ -101,7 +93,7 @@ $result = $stmt->get_result();
 			</div>
 
 			<div>
-				<input type="submit" value="Invia lo stato" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition">
+				<input type="submit" value="Rimuovi l'assemblea" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition">
 			</div>
 		</form>
 	</main>

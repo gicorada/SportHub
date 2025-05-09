@@ -40,23 +40,11 @@ $stmtCarica->close();
     <title>Gestisci Atti</title>
 </head>
 <body class="bg-gray-50">
-
-    <!-- Header -->
-    <header class="bg-blue-600 text-white p-4 sticky top-0 z-10 shadow-md">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="/assets/logo.png" alt="Logo" class="h-20 w-auto">
-                <h1 class="text-2xl font-bold">SportHub - Gestione Atti</h1>
-            </div>
-            <nav class="flex items-center gap-6">
-                <a href="/dashboard.php" class="hover:text-gray-200">Dashboard</a>
-                <a href="/pages/assemblee/visualizza.php" class="hover:text-gray-200">Assemblee</a>
-                <a href="/pages/prenotazioni/prenota.php" class="hover:text-gray-200">Prenotazioni</a>
-                <a href="/pages/private/datiPersonali.php" class="hover:text-gray-200">Dati Personali</a>
-                <a href="/logout.php" class="text-red-400 hover:text-red-500">Logout</a>
-            </nav>
-        </div>
-    </header>
+    <?php 
+        $titleHeader = "Gestisci Atti";
+        $activeHeader = "gestisci-atti";
+        include "../../partials/header.php";
+    ?>
 
     <main class="max-w-7xl mx-auto p-6">
         <h2 class="text-3xl font-bold text-center mb-4 mt-6">Aggiungi un atto</h2>
@@ -97,7 +85,7 @@ $stmtCarica->close();
             <form action="/utils/atti/aggiungiNomina.php" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div class="mb-4">
                     <label for="atto" class="block text-gray-700 text-sm font-bold mb-2">ID Atto:</label>
-                    <select name="atto" id="atto">
+                    <select name="atto" id="atto" class="mt-2 p-2 border rounded-md">
                         <?php while($row = $resultAtto->fetch_assoc()): ?>
                             <option value="<?= htmlspecialchars($row['NumProtocollo'])."/".htmlspecialchars($row['Anno']) ?>"><?= htmlspecialchars($row['NumProtocollo'])."/".htmlspecialchars($row['Anno']) ?></option>
                         <?php endwhile; ?>
@@ -105,7 +93,7 @@ $stmtCarica->close();
                 </div>
                 <div class="mb-4">
                     <label for="nome" class="block text-gray-700 text-sm font-bold mb-2">Nome:</label>
-                    <select name="persona" id="persona">
+                    <select name="persona" id="persona" class="mt-2 p-2 border rounded-md">
                         <?php while($row = $resultPersone->fetch_assoc()): ?>
                             <option value="<?= htmlspecialchars($row['CF']) ?>"><?= htmlspecialchars($row['Nome'])." ".htmlspecialchars($row['Cognome'])." - ".htmlspecialchars($row['CF']) ?></option>
                         <?php endwhile; ?>
@@ -113,7 +101,7 @@ $stmtCarica->close();
                 </div>
                 <div class="mb-4">
                     <label for="ruolo" class="block text-gray-700 text-sm font-bold mb-2">Ruolo:</label>
-                    <select name="carica" id="carica">
+                    <select name="carica" id="carica" class="mt-2 p-2 border rounded-md">
                         <?php while($row = $resultCarica->fetch_assoc()): ?>
                             <option value="<?= htmlspecialchars($row['Nome']) ?>"><?= htmlspecialchars($row['Nome']) ?></option>
                         <?php endwhile; ?>

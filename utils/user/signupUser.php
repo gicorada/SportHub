@@ -2,7 +2,7 @@
     include '../conn.php';
 
     if(isset($_SESSION["Email"])){
-        header("Location: ../../index.html");
+        header("Location: /index.html");
         exit();
     }
     
@@ -24,7 +24,7 @@
         if($stmt->affected_rows === 0) die('Errore nella creazione dell\'utente');
         else {
             echo 'Utente creato con successo';
-            header('Location: ../../login.html');
+            header('Location: /login.html');
         }
     }
 ?>

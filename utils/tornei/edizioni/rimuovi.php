@@ -21,7 +21,7 @@
 		$stmt->execute();
 
         if($conn->affected_rows != 0) {
-            header('Location: ../../pages/gestisciEdizioniTorneo.php');
+            header('Location: /pages/gestisciEdizioniTornei.php');
         } else die ('Inserimento del campo non riuscito');
     } else die('Devi fornire i dati tramite POST');
 ?>

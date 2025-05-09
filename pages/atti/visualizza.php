@@ -8,9 +8,6 @@ $stmt = $conn->prepare($query);
 $stmt->execute();
 
 $result = $stmt->get_result();
-$row = $result->fetch_assoc();
-
-$result = $conn->query($query);
 
 ?>
 
@@ -20,31 +17,40 @@ $result = $conn->query($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizza gli atti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
-    <h1>Visualizza gli atti</h1>
-	<h2>Da qui puoi visualizzare gli atti</h2>
-    
-    <table border=1>
-        <thead>
-            <th>Numero di Protocollo</th>
-            <th>Oggetto</th>
-            <th>Data</th>
-            <th>Ordine del giorno</th>
-            <th>Testo</th>
-        </thead>
-        <tbody>
-            <?php foreach($result as $row): ?>
-                <tr>
-                    <td><?= htmlspecialchars($row['NumProtocollo'])."/".htmlspecialchars($row['Anno']) ?></td>
-                    <td><?= htmlspecialchars($row['Oggetto']) ?></td>
-                    <td><?= htmlspecialchars($row['Data']) ?></td>
-                    <td><?= htmlspecialchars($row['ODG']) ?></td>
-                    <td><?= htmlspecialchars($row['Testo']) ?></td>
+<body class="bg-gray-50">
+    <?php 
+        $titleHeader = "Visualizza Atti";
+        $activeHeader = "visualizza-atti";
+        include "../../partials/header.php";
+    ?>
+
+	<main class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">		
+		<table class="table-auto w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th>Numero di Protocollo</th>
+                    <th>Oggetto</th>
+                    <th>Data</th>
+                    <th>Ordine del giorno</th>
+                    <th>Testo</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach($result as $row): ?>
+                    <tr class="hover:bg-gray-50">
+                        <td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['NumProtocollo'])."/".htmlspecialchars($row['Anno']) ?></td>
+                        <td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['Oggetto']) ?></td>
+                        <td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['Data']) ?></td>
+                        <td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['ODG']) ?></td>
+                        <td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['Testo']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </main>
 </body>
 </html>

@@ -23,24 +23,14 @@ $result = $stmt->get_result();
 	<script src="https://cdn.tailwindcss.com"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="bg-gray-50">
-	<!-- Header -->
-    <header class="bg-blue-600 text-white p-4 sticky top-0 z-10 shadow-md">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="/assets/logo.png" alt="Logo" class="h-20 w-auto">
-                <h1 class="text-2xl font-bold">SportHub - Visualizza le Assemblee</h1>
-            </div>
-            <nav class="flex items-center gap-6">
-                <a href="/dashboard.php" class="hover:text-gray-200">Dashboard</a>
-                <a href="#" class="hover:text-gray-200">Assemblee</a>
-                <a href="/pages/prenotazioni/prenota.php" class="hover:text-gray-200">Prenotazioni</a>
-                <a href="/pages/private/datiPersonali.php" class="hover:text-gray-200">Dati Personali</a>
-                <a href="/logout.php" class="text-red-400 hover:text-red-500">Logout</a>
-            </nav>
-        </div>
-    </header>
+	<?php 
+		$titleHeader = "Visualizza Assemblee";
+		$activeHeader = "assemblee";
+		include "../../partials/header.php";
+	?>
 
 	<main class="max-w-7xl mx-auto p-6">
 		<div class="bg-white p-6 rounded-xl shadow-md space-y-4">
@@ -49,7 +39,7 @@ $result = $stmt->get_result();
 
 				<div>
 					<label for="calendar-view" class="mr-2 font-medium">Vista</label>
-					<select id="calendar-view" class="border-gray-300 rounded-md shadow-sm">
+					<select id="calendar-view" class="mt-2 p-2 border rounded-md">
 						<option value="timeGridDay">Giorno</option>
 						<option value="timeGridWeek" selected>Settimana</option>
 						<option value="dayGridMonth">Mese</option>

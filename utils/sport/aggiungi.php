@@ -8,11 +8,11 @@
 	}
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-		if(empty($_POST['nome'])) {
+		if(empty($_POST['sport'])) {
 			die('Necessario fornire i dati');
 		}
 
-        $nome = $_POST['nome'];
+        $nome = $_POST['sport'];
 
 		$sql = "INSERT INTO SPORT(Nome) VALUES (?)";
 		$stmt = $conn->prepare($sql);
@@ -20,7 +20,7 @@
 		$stmt->execute();
 
         if($conn->affected_rows != 0) {
-            header('Location: ../pages/admin/gestisciSport.php');
+            header('Location: /pages/admin/gestisciSport.php');
         } else die ("Inserimento del campo non riuscito");
     } else die("Devi fornire i dati tramite POST");
 ?>

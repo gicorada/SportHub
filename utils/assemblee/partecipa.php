@@ -22,7 +22,7 @@
         $stmt->execute();
 
         if($conn->affected_rows != 0) {
-            header('Location: ../../pages/assemblee/visualizza.php');
+            header('Location: /pages/assemblee/visualizza.php');
         } else die ("Modifica della partecipazione non riuscita");
     } else die("Devi fornire i dati tramite POST");
 ?>

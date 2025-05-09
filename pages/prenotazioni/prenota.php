@@ -43,23 +43,11 @@ $resultAttivita = $stmtAttivita->get_result();
 	<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.js"></script>
 </head>
 <body class="bg-gray-50">
-	<!-- Header -->
-    <header class="bg-blue-600 text-white p-4 sticky top-0 z-10 shadow-md">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="/assets/logo.png" alt="Logo" class="h-20 w-auto">
-                <h1 class="text-2xl font-bold">SportHub - Prenota Campi</h1>
-            </div>
-            <nav class="flex items-center gap-6">
-                <a href="/dashboard.php" class="hover:text-gray-200">Dashboard</a>
-                <a href="/pages/assemblee/gestisci.php" class="hover:text-gray-200">Assemblee</a>
-                <a href="#" class="hover:text-gray-200">Prenotazioni</a>
-                <a href="/pages/private/datiPersonali.php" class="hover:text-gray-200">Dati Personali</a>
-                <a href="/logout.php" class="text-red-400 hover:text-red-500">Logout</a>
-            </nav>
-        </div>
-    </header>
-
+	<?php 
+		$titleHeader = "Prenota Campo";
+		$activeHeader = "prenota";
+		include "../../partials/header.php";
+	?>
 	<main class="max-w-7xl mx-auto p-6">
 		<div class="bg-white p-6 rounded-xl shadow-md space-y-4">
 			<div class="flex justify-between items-center">
@@ -68,8 +56,8 @@ $resultAttivita = $stmtAttivita->get_result();
 				<div class="flex items-right gap-4">
 					<div>
 						<label for="filter-sport" class="mr-2 font-medium">Filtra</label>
-						<select id="filter-sport" class="border-gray-300 rounded-md shadow-sm">
-							<option value="">Seleziona Sport<option>
+						<select id="filter-sport" class="mt-2 p-2 border rounded-md">
+							<option value="" disabled>Seleziona Sport<option>
 							<?php while($rowSport = $resultCampo->fetch_assoc()): ?>
 								<option value="<?= $rowSport['Sport'] ?>" <?= (($rowSport['Sport'] == ($_GET['sport'] ?? '')) ? 'selected' : '')?>><?= $rowSport['Sport'] ?></option>
 							<?php endwhile; ?>
@@ -78,14 +66,12 @@ $resultAttivita = $stmtAttivita->get_result();
 	
 					<div>
 						<label for="calendar-view" class="mr-2 font-medium">Vista</label>
-						<select id="calendar-view" class="border-gray-300 rounded-md shadow-sm">
+						<select id="calendar-view" class="mt-2 p-2 border rounded-md">
 							<option value="timeGridDay">Giorno</option>
 							<option value="timeGridWeek" selected>Settimana</option>
 							<option value="dayGridMonth">Mese</option>
 						</select>
 					</div>
-
-
 				</div>
 			</div>
 
@@ -95,7 +81,7 @@ $resultAttivita = $stmtAttivita->get_result();
 		<h2 class="text-3xl font-bold text-center mb-4 mt-6">Prenota un campo</h2>
         <p class="text-center mb-4">Seleziona data e ora dal calendario, o dal menu qui sotto</p>
 
-		<form action="../../utils/prenotazioni/aggiungi.php" method="POST" class="bg-white p-6 rounded-lg shadow-md">
+		<form action="/utils/prenotazioni/aggiungi.php" method="POST" class="bg-white p-6 rounded-lg shadow-md">
 			<div class="mb-4">
 				<label for="inizio" class="block text-lg font-semibold">Inizio</label>
 				<input type="datetime-local" name="inizio" id="inizio" required class="mt-2 p-3 border rounded-md w-full">
@@ -109,7 +95,7 @@ $resultAttivita = $stmtAttivita->get_result();
 			<div class="mb-4">
 				<label for="campo" class="block text-lg font-semibold">Campo</label>
 				<select name="campo" id="campo" required class="mt-2 p-3 border rounded-md w-full">
-					<option value="">-- Seleziona --</option>
+					<option value="" disabled>-- Seleziona --</option>
 					<?php while($rowCampo = $resultCampo->fetch_assoc()): ?>
 						<option value="<?= $rowCampo['Codice'] ?>"><?= $rowCampo['Codice'] ?> - <?= $rowCampo['Sport'] ?></option>
 					<?php endwhile; ?>

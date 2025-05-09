@@ -3,9 +3,7 @@ include '../../utils/conn.php';
 include '../../utils/verifyAndStartSession.php';
 
 // Su DB modificato, adesso pk di torneo è codice
-
-
-if($_SERVER['REQUEST_METHOD'] != 'POST') die("Devi fornire i dati tramite POST");
+if($_SERVER['REQUEST_METHOD'] != 'POST') header('Location: /pages/admin/gestisciTornei.php');
 if(empty($_POST['codice'])) {
 	die('Necessario fornire i dati');
 }
@@ -26,67 +24,75 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestisci i campi</title>
+    <title>Gestisci le edizioni dei tornei</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
-    <h1>Gestisci le edizioni dei tornei</h1>
-	<h2>Da qui puoi gestire le edizioni dei tornei di questa polisportiva</h2>
-    
-    <table border=1>
-        <thead>
-            <th>Codice</th>
-			<th>Attività</th>
-			<th>Sport</th>
-			<th>Anno</th>
-			<th>Sponsor</th>
-			<th>Documento</th>
-			<th>Azioni</th>
-        </thead>
-        <tbody>
-			<?php foreach($result as $row): ?>
-				<tr>
-					<td><?= htmlspecialchars($codice) ?></td>
-					<td><?= htmlspecialchars($row['Attivita']) ?></td>
-					<td><?= htmlspecialchars($row['Sport']) ?></td>
-					<td><?= htmlspecialchars($row['Anno'] ?? '') ?></td>
-					<td><?= htmlspecialchars($row['Sponsor'] ?? '') ?></td>
-					<td><a href="//<?= htmlspecialchars($row['Documento'] ?? '') ?>"><?= htmlspecialchars($row['Documento'] ?? '') ?></a></td>
+<body class="bg-gray-50">
+	<?php 
+		$titleHeader = "Gestisci Edizioni Tornei";
+		$activeHeader = "gestisci-edizioni-tornei";
+		include "../../partials/header.php";
+	?>
 
-					<td>
-						<form action="../../utils/tornei/edizioni/rimuovi.php" method="POST" <?= $row['Anno'] == '' ? 'hidden' : '' ?>>
-							<input type="hidden" name="codice" value="<?= htmlspecialchars($codice) ?>">
-							<input type="hidden" name="anno" value="<?= htmlspecialchars($row['Anno'] ?? '') ?>">
-							<button type="submit">Elimina</button>
-						</form>
+	<main class="max-w-7xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+		<table class="table-auto w-full border-collapse border border-gray-300">
+			<thead>
+				<tr class="bg-gray-100">
+					<th>Codice</th>
+					<th>Attività</th>
+					<th>Sport</th>
+					<th>Anno</th>
+					<th>Sponsor</th>
+					<th>Documento</th>
+					<th>Azioni</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($result as $row): ?>
+					<tr class="hover:bg-gray-50">
+						<td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($codice) ?></td>
+						<td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['Attivita']) ?></td>
+						<td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['Sport']) ?></td>
+						<td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['Anno'] ?? '') ?></td>
+						<td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['Sponsor'] ?? '') ?></td>
+						<td class="border border-gray-300 px-4 py-2"><a href="//<?= htmlspecialchars($row['Documento'] ?? '') ?>"><?= htmlspecialchars($row['Documento'] ?? '') ?></a></td>
+
+						<td class="border border-gray-300 px-4 py-2">
+							<form action="../../utils/tornei/edizioni/rimuovi.php" method="POST" <?= $row['Anno'] == '' ? 'hidden' : '' ?> class="inline">
+								<input type="hidden" name="codice" value="<?= htmlspecialchars($codice) ?>">
+								<input type="hidden" name="anno" value="<?= htmlspecialchars($row['Anno'] ?? '') ?>">
+								<button type="submit" class="text-red-500 hover:text-red-700">Elimina</button>
+							</form>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+				
+				<tr>
+					<td colspan="3" class="text-center border border-gray-300 px-4 py-2"></td>
+					<td colspan="3" class="text-center border border-gray-300 px-4 py-2">
+						<button id="mostra-form" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">+ Aggiungi nuova edizione</button>
 					</td>
 				</tr>
-			<?php endforeach; ?>
-			
-			<tr>
-				<td colspan="3"></td>
-				<td colspan="3" style="text-align: center;">
-					<button id="mostra-form">+ Aggiungi nuova edizione</button>
-				</td>
-			</tr>
-			<tr id="form-row" style="display: none;"></tr>
-        </tbody>
-    </table>
+				<tr id="form-row" style="display: none;"></tr>
+			</tbody>
+		</table>
+	</main>
 
 	<script>
 		document.getElementById('mostra-form').addEventListener('click', function () {
 			const formRow = document.getElementById('form-row');
 			formRow.style.display = 'table-row';
 			formRow.innerHTML = `
-				<td colspan="3">
-				</td>
-				<td colspan="3">
-					<form action="../../utils/tornei/edizioni/aggiungi.php" method="POST" style="display: flex; gap: 1rem; justify-content: center;">
+				<td colspan="3" class="border border-gray-300 px-4 py-2"></td>
+				<td colspan="3" class="border border-gray-300 px-4 py-2">
+					<form action="../../utils/tornei/edizioni/aggiungi.php" method="POST" class="flex gap-4 justify-center">
 						<input type="text" name="codice" hidden placeholder="Codice" required value="<?= htmlspecialchars($codice) ?>">
-						<input type="text" name="anno" placeholder="Anno" required>
-						<input type="text" name="sponsor" placeholder="Sponsor" required>
-						<input type="text" name="documento" placeholder="Documento (link)" required>
-						<button type="submit">Aggiungi</button>
+						<input type="text" name="anno" placeholder="Anno" required class="border border-gray-300 rounded px-2 py-1">
+						<input type="text" name="sponsor" placeholder="Sponsor" required class="border border-gray-300 rounded px-2 py-1">
+						<input type="text" name="documento" placeholder="Documento (link)" required class="border border-gray-300 rounded px-2 py-1">
+						<button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Aggiungi</button>
 					</form>
 				</td>
 			`;

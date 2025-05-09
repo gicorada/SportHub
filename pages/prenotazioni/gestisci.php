@@ -19,29 +19,18 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestisci Prenotazioni</title>
 	<script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.js"></script>
-    <title>Gestisci Prenotazioni</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="bg-gray-50">
-
-    <!-- Header -->
-    <header class="bg-blue-600 text-white p-4 sticky top-0 z-10 shadow-md">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="/assets/logo.png" alt="Logo" class="h-20 w-auto">
-                <h1 class="text-2xl font-bold">SportHub - Gestione Prenotazioni</h1>
-            </div>
-            <nav class="flex items-center gap-6">
-                <a href="/dashboard.php" class="hover:text-gray-200">Dashboard</a>
-                <a href="/pages/assemblee/visualizza.php" class="hover:text-gray-200">Assemblee</a>
-                <a href="/pages/prenotazioni/prenota.php" class="hover:text-gray-200">Prenotazioni</a>
-                <a href="/pages/private/datiPersonali.php" class="hover:text-gray-200">Dati Personali</a>
-                <a href="/logout.php" class="text-red-400 hover:text-red-500">Logout</a>
-            </nav>
-        </div>
-    </header>
+    <?php 
+		$titleHeader = "Gestisci Prenotazioni";
+		$activeHeader = "prenota";
+		include "../../partials/header.php";
+	?>
 
     <main class="max-w-7xl mx-auto p-6">
 		<div class="bg-white p-6 rounded-xl shadow-md space-y-4">
@@ -66,8 +55,8 @@ $result = $stmt->get_result();
         <form action="../../utils/convalidaPrenotazione.php" method="POST" class="bg-white p-6 rounded-lg shadow-md">
             <div class="mb-4">
                 <label for="NumeroPrenotazione" class="block text-lg font-semibold">Seleziona la prenotazione</label>
-                <select name="NumeroPrenotazione" id="prenotazione" required class="mt-2 p-3 border rounded-md w-full">
-                    <option value="">-- Seleziona --</option>
+                <select name="NumeroPrenotazione" id="prenotazione" class="mt-2 p-2 border rounded-md">
+                    <option value="" disabled>-- Seleziona --</option>
                     <?php foreach($result as $row): ?>
                         <option value="<?= $row['ID'] ?>"><?= $row["NomePrenotante"]." - ".$row["DataInizio"]." - ".$row["Campo"] ?></option>
                     <?php endforeach; ?>

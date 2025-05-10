@@ -76,7 +76,7 @@ if(in_array('Atleta', $ruoli)) {
 				<div>
 					<label for="tipopersonale" class="block text-sm font-medium text-gray-700">Tipo Personale</label>
 					<input type="text" name="tipopersonale" id="tipopersonale" value="<?= $tipopersonale ?>"
-						class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+						class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 				</div>
 			<?php endif; ?>
 				

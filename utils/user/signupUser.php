@@ -9,10 +9,10 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $CF = $_POST['CF'];
-        $Email = $_POST['Email'];
-        $Nome = $_POST['Nome'];
-        $Cognome = $_POST['Cognome'];
-        $Password = $_POST['Password'];
+        $Email = $_POST['email'];
+        $Nome = $_POST['nome'];
+        $Cognome = $_POST['cognome'];
+        $Password = $_POST['password'];
 
         $passwordHash = password_hash($Password, PASSWORD_DEFAULT);
 

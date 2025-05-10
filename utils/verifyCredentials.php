@@ -8,8 +8,8 @@
     }
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $Email = htmlentities($_POST['Email']);
-        $Password = htmlentities($_POST['Password']);
+        $Email = htmlentities($_POST['email']);
+        $Password = htmlentities($_POST['password']);
 
         $stmt = $conn->prepare("SELECT Password FROM PERSONA WHERE Email = ?");
         $stmt->bind_param("s", $Email);

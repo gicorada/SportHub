@@ -21,25 +21,15 @@ $result = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestisci i tuoi contatti</title>
 	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="bg-gray-50">
-	<!-- Header -->
-	<header class="bg-blue-600 text-white p-4 sticky top-0 z-10 shadow-md">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="/assets/logo.png" alt="Logo" class="h-20 w-auto">
-                <h1 class="text-2xl font-bold">SportHub - Gestisci i tuoi contatti</h1>
-            </div>
-            <nav class="flex items-center gap-6">
-                <a href="/dashboard.php" class="hover:text-gray-200">Dashboard</a>
-                <a href="/pages/assemblee/visualizza.php" class="hover:text-gray-200">Assemblee</a>
-                <a href="/pages/prenotazioni/prenota.php" class="hover:text-gray-200">Prenotazioni</a>
-                <a href="/pages/private/datiPersonali.php" class="hover:text-gray-200">Dati Personali</a>
-                <a href="/logout.php" class="text-red-400 hover:text-red-500">Logout</a>
-            </nav>
-        </div>
-    </header>
+	<?php 
+		$titleHeader = "Gestisci i numeri di telefono";
+		$activeHeader = "telefono";
+		include "../../partials/header.php";
+	?>
 	
 	<main class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">		
 		<table class="table-auto w-full border-collapse border border-gray-300">

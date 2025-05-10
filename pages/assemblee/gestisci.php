@@ -20,7 +20,7 @@ $result = $stmt->get_result();
 	<script src="https://cdn.tailwindcss.com"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray-50">
 	<?php 
@@ -46,8 +46,6 @@ $result = $stmt->get_result();
 
 			<div id="ec" class="rounded-md overflow-hidden"></div>
 		</div>
-
-		<!-- TODO manca pagina per vedere partecipanti -->
 
 		<h2 class="text-3xl font-bold text-center mb-4 mt-6">Aggiungi un'assemblea</h2>
         <p class="text-center mb-4">Seleziona data e ora dal calendario, o dal menu qui sotto</p>
@@ -78,16 +76,35 @@ $result = $stmt->get_result();
 			</div>
 		</form>
 
+		<h2 class="text-3xl font-bold text-center mb-4 mt-6">Visualizza i partecipanti dell'assemblea</h2>
+        <p class="text-center mb-4">Seleziona un evento dal calendario, o dal menu qui sotto</p>
+
+		<form action="./partecipanti.php" method="POST" class="bg-white p-6 rounded-lg shadow-md">
+			<div class="mb-4">
+				<label for="assembleaPart" class="block text-lg font-semibold">Assemblea</label>
+                <select name="assembleaPart" id="assembleaPart" required class="mt-2 p-3 border rounded-md w-full">
+                    <option value="" disabled>-- Seleziona --</option>
+                    <?php foreach($result as $row): ?>
+                        <option value="<?= $row['Codice'] ?>"><?= $row['Codice'] ?> - <?= $row["Descrizione"] ?> - <?= $row['Data']?></option>
+                    <?php endforeach; ?>
+                </select>
+			</div>
+
+			<div>
+				<input type="submit" value="Visualizza i partecipanti" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition">
+			</div>
+		</form>
+
         <h2 class="text-3xl font-bold text-center mb-4 mt-6">Rimuovi un'assemblea</h2>
         <p class="text-center mb-4">Seleziona un evento dal calendario, o dal menu qui sotto</p>
 
 		<form action="/utils/assemblee/rimuovi.php" method="POST" class="bg-white p-6 rounded-lg shadow-md">
 			<div class="mb-4">
-				<label for="codice" class="block text-lg font-semibold">Inizio</label>
+				<label for="assembleaRimuovi" class="block text-lg font-semibold">Assemblea</label>
                 <select name="assembleaRimuovi" id="assembleaRimuovi" required class="mt-2 p-3 border rounded-md w-full">
-                    <option value="">-- Seleziona --</option>
+                    <option value="" disabled>-- Seleziona --</option>
                     <?php foreach($result as $row): ?>
-                        <option value="<?= $row['Codice'] ?>"><?= $row['Codice'] ?> - <?= $row["Descrizione"] ?></option>
+                        <option value="<?= $row['Codice'] ?>"><?= $row['Codice'] ?> - <?= $row["Descrizione"] ?> - <?= $row['Data']?></option>
                     <?php endforeach; ?>
                 </select>
 			</div>
@@ -130,6 +147,7 @@ $result = $stmt->get_result();
 
         function selectAssembleaWithEvent(event) {
 			document.getElementById("assembleaRimuovi").value = event.id;
+			document.getElementById("assembleaPart").value = event.id;
 		}
 
 		function selectDateTime(info) {

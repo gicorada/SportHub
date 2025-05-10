@@ -4,22 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entra in SportHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
-    <h1>Entra</h1>
-    <form action="./utils/verifyCredentials.php" method="POST">
-        <div id="usernameContainer">
-            <input type="Email" name="Email" id="Email" placeholder="Email..." required>
-        </div>
+<body class="bg-gray-50">
+	<main class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold">Entra</h1>
+        <p class="text-gray-600 mb-4">Accedi al tuo account per continuare.</p>
 
-        <div id="passwordContainer">
-            <input type="password" name="Password" id="Password" placeholder="Password..." required>
-        </div>
+        <a href="./index.html" class="text-blue-600 hover:text-blue-800 font-medium flex items-center space-x-2 mb-4">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            <span>Torna alla pagina di introduzione</span>
+        </a>
 
-        <div class="submitContainer">
-            <input type="submit" value="Entra">
-        </div>
-    </form> 
+        <a href="./signUp.html" class="text-blue-600 hover:text-blue-800 font-medium flex items-center space-x-2 mb-4">
+            <i class="fa fa-person" aria-hidden="true"></i>
+            <span>Non hai ancora un account?</span>
+        </a>
+
+        <form action="./utils/verifyCredentials.php" method="POST" class="space-y-4">
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" name="email" id="email" placeholder="Email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" name="password" id="password" placeholder="Password" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+
+            <div>
+                <input type="submit" value="Entra" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            </div>
+        </form>
+    </main>
 </body>
 </html>

@@ -1,10 +1,10 @@
 <?php
-	include "../../utils/conn.php";
-	include "../../utils/verifyAndStartSession.php";
+	include '../../utils/conn.php';
+	include '../../utils/verifyAndStartSession.php';
 
-	$ruoli = $_SESSION["ruoli"];
+	$ruoli = $_SESSION['ruoli'];
 	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
-		die("Permessi insufficienti");
+		die('Permessi insufficienti');
 	}
 
 	// TODO aggiunta dataFine sul DB
@@ -29,9 +29,9 @@
 </head>
 <body class="bg-gray-50">
 	<?php 
-		$titleHeader = "Gestisci Assemblee";
-		$activeHeader = "gestisci-assemblee";
-		include "../../partials/header.php";
+		$titleHeader = 'Gestisci Assemblee';
+		$activeHeader = 'gestisci-assemblee';
+		include '../../partials/header.php';
 	?>
 
 	<main class="max-w-7xl mx-auto p-6">
@@ -90,7 +90,7 @@
                 <select name="assembleaPart" id="assembleaPart" required class="mt-2 p-3 border rounded-md w-full">
                     <option value="" disabled>-- Seleziona --</option>
                     <?php foreach($result as $row): ?>
-                        <option value="<?= $row['Codice'] ?>"><?= $row['Codice'] ?> - <?= $row["Descrizione"] ?> - <?= $row['Data']?></option>
+                        <option value="<?= $row['Codice'] ?>"><?= htmlspecialchars($row['Codice']) ?> - <?= htmlspecialchars($row["Descrizione"]) ?> - <?= htmlspecialchars($row['Data'])?></option>
                     <?php endforeach; ?>
                 </select>
 			</div>
@@ -109,7 +109,7 @@
                 <select name="assembleaRimuovi" id="assembleaRimuovi" required class="mt-2 p-3 border rounded-md w-full">
                     <option value="" disabled>-- Seleziona --</option>
                     <?php foreach($result as $row): ?>
-                        <option value="<?= $row['Codice'] ?>"><?= $row['Codice'] ?> - <?= $row["Descrizione"] ?> - <?= $row['Data']?></option>
+                        <option value="<?= $row['Codice'] ?>"><?= htmlspecialchars($row['Codice']) ?> - <?= htmlspecialchars($row["Descrizione"]) ?> - <?= htmlspecialchars($row['Data'])?></option>
                     <?php endforeach; ?>
                 </select>
 			</div>
@@ -126,16 +126,16 @@
 			events: [
 				<?php foreach($result as $row): ?>
 					{
-						id: <?= $row["Codice"] ?>,
+						id: <?= $row['Codice'] ?>,
 						allDay: false,
-						start: new Date("<?= $row["Data"] ?>"),
-						end: new Date("<?= $row["DataFine"] ?>"),
-						title: "<?= $row["Descrizione"] ?>",
-						display: "auto",
+						start: new Date('<?= $row['Data'] ?>'),
+						end: new Date('<?= $row['DataFine'] ?>'),
+						title: "<?= $row['Descrizione'] ?>",
+						display: 'auto',
 						editable: false,
 						startEditable: false,
 						durationEditable: false,
-						backgroundColor: "darkblue",
+						backgroundColor: 'darkblue',
 					},
 				<?php endforeach; ?>
 			],
@@ -146,13 +146,13 @@
             select: (info) => selectDateTime(info),
 		});
 
-		document.getElementById("calendar-view").addEventListener("change", function () {
-			ec.setOption("view", this.value);
+		document.getElementById('calendar-view').addEventListener('change', function () {
+			ec.setOption('view', this.value);
 		});
 
         function selectAssembleaWithEvent(event) {
-			document.getElementById("assembleaRimuovi").value = event.id;
-			document.getElementById("assembleaPart").value = event.id;
+			document.getElementById('assembleaRimuovi').value = event.id;
+			document.getElementById('assembleaPart').value = event.id;
 		}
 
 		function selectDateTime(info) {
@@ -161,8 +161,8 @@
             const localStart = new Date(info.start.getTime() - timezoneOffset).toISOString().slice(0, 16);
             const localEnd = new Date(info.end.getTime() - timezoneOffset).toISOString().slice(0, 16);
 
-            document.getElementById("inizio").value = localStart;
-            document.getElementById("fine").value = localEnd;
+            document.getElementById('inizio').value = localStart;
+            document.getElementById('fine').value = localEnd;
 		}
 	</script>
 </body>

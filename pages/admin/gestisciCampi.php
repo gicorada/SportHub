@@ -2,9 +2,9 @@
 	include '../../utils/conn.php';
 	include '../../utils/verifyAndStartSession.php';
 
-	$ruoli = $_SESSION["ruoli"];
+	$ruoli = $_SESSION['ruoli'];
 	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
-		die("Permessi insufficienti");
+		die('Permessi insufficienti');
 	}
 
 	$query = "SELECT Codice, Sport FROM CAMPO ORDER BY Codice";
@@ -32,9 +32,9 @@
 
 <body class="bg-gray-50">
 	<?php 
-		$titleHeader = "Gestisci Campi";
-		$activeHeader = "gestisci-campi";
-		include "../../partials/header.php";
+		$titleHeader = 'Gestisci Campi';
+		$activeHeader = 'gestisci-campi';
+		include '../../partials/header.php';
 	?>
     
 	<main class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">		

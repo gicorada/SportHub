@@ -1,10 +1,10 @@
 <?php
-	include "../../utils/conn.php";
-	include "../../utils/verifyAndStartSession.php";
+	include '../../utils/conn.php';
+	include '../../utils/verifyAndStartSession.php';
 
-	$ruoli = $_SESSION["ruoli"];
+	$ruoli = $_SESSION['ruoli'];
 	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
-		die("Permessi insufficienti");
+		die('Permessi insufficienti');
 	}
 
 	if($_SERVER['REQUEST_METHOD'] != 'POST') header('Location: /pages/assemblee/gestisci.php');
@@ -21,7 +21,7 @@
 				WHERE P_A.Assemblea = ?";
 
 	$stmt = $conn->prepare($query);
-	$stmt->bind_param("s", $assemblea);
+	$stmt->bind_param('s', $assemblea);
 	$stmt->execute();
 
 	$result = $stmt->get_result();
@@ -40,9 +40,9 @@
 </head>
 <body class="bg-gray-50">
 	<?php 
-		$titleHeader = "Visualizza Invitati Assemblee";
-		$activeHeader = "invitati-assemblee";
-		include "../../partials/header.php";
+		$titleHeader = 'Visualizza Invitati Assemblee';
+		$activeHeader = 'invitati-assemblee';
+		include '../../partials/header.php';
 	?>
 
 	<main class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">		

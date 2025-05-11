@@ -1,10 +1,10 @@
 <?php
-    include "../../utils/conn.php";
-    include "../../utils/verifyAndStartSession.php";
+    include '../../utils/conn.php';
+    include '../../utils/verifyAndStartSession.php';
 
-    $ruoli = $_SESSION["ruoli"];
+    $ruoli = $_SESSION['ruoli'];
 	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
-		die("Permessi insufficienti");
+		die('Permessi insufficienti');
 	}
 
     $queryAtto = "SELECT NumProtocollo, Anno FROM ATTO";
@@ -12,7 +12,7 @@
     $stmtAtto->execute();
     $resultAtto = $stmtAtto->get_result();
     if($resultAtto->num_rows == 0){
-        echo "Nessun atto trovato";
+        die('Nessun atto trovato');
     }
     $stmtAtto->close();
 
@@ -21,7 +21,7 @@
     $stmtPersone->execute();
     $resultPersone = $stmtPersone->get_result();
     if($resultPersone->num_rows == 0){
-        echo "Nessuna persona trovata";
+        die('Nessuna persona trovata');
     }
     $stmtPersone->close();
 
@@ -30,10 +30,10 @@
     $stmtCarica->execute();
     $resultCarica = $stmtCarica->get_result();
     if($resultCarica->num_rows == 0){
-        echo "Nessuna carica trovata";
+        die('Nessuna carica trovata');
     }
     $stmtCarica->close();
-
+    $conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -46,9 +46,9 @@
 </head>
 <body class="bg-gray-50">
     <?php 
-        $titleHeader = "Gestisci Atti";
-        $activeHeader = "gestisci-atti";
-        include "../../partials/header.php";
+        $titleHeader = 'Gestisci Atti';
+        $activeHeader = 'gestisci-atti';
+        include '../../partials/header.php';
     ?>
 
     <main class="max-w-7xl mx-auto p-6">

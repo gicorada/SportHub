@@ -2,13 +2,16 @@
 	include "../../utils/conn.php";
 	include "../../utils/verifyAndStartSession.php";
 
+	$CF = $_SESSION["CF"];
+	$ruoli = $_SESSION["ruoli"];
+
 	$query = "SELECT Codice, Data, DataFine, ODG, Descrizione, CONCAT(P.Nome, ' ', P.Cognome) as Convocatore, Confermato
 				FROM ASSEMBLEA A
 				JOIN PERSONA P ON (A.Convocatore = P.CF)
 				JOIN PARTECIPAZIONE_ASSEMBLEA P_A ON (A.Codice = P_A.Assemblea AND ? = P_A.Persona);";
 
 	$stmt = $conn->prepare($query);
-	$stmt->bind_param("s", $_SESSION["CF"]);
+	$stmt->bind_param('s', $CF);
 	$stmt->execute();
 
 	$result = $stmt->get_result();
@@ -27,9 +30,9 @@
 </head>
 <body class="bg-gray-50">
 	<?php 
-		$titleHeader = "Visualizza Assemblee";
-		$activeHeader = "assemblee";
-		include "../../partials/header.php";
+		$titleHeader = 'Visualizza Assemblee';
+		$activeHeader = 'assemblee';
+		include '../../partials/header.php';
 	?>
 
 	<main class="max-w-7xl mx-auto p-6">
@@ -58,7 +61,7 @@
 				<select name="NumeroAssemblea" id="assemblea" required class="mt-2 p-3 border rounded-md w-full">
 					<option value="">-- Seleziona --</option>
 					<?php foreach($result as $row): ?>
-						<option value="<?= $row['Codice'] ?>"><?= $row['Codice'] ?> - <?= $row["Descrizione"] ?></option>
+						<option value="<?= $row['Codice'] ?>"><?= htmlspecialchars($row['Codice']) ?> - <?= htmlspecialchars($row['Descrizione']) ?></option>
 					<?php endforeach; ?>
 				</select>
 			</div>
@@ -89,21 +92,21 @@
 			events: [
 				<?php foreach($result as $row): ?>
 					{
-						id: <?= $row["Codice"] ?>,
+						id: <?= $row['Codice'] ?>,
 						allDay: false,
-						start: new Date("<?= $row["Data"] ?>"),
-						end: new Date("<?= $row["DataFine"] ?>"),
-						title: "<?= $row["Descrizione"] ?>",
-						display: "auto",
+						start: new Date("<?= $row['Data'] ?>"),
+						end: new Date("<?= $row['DataFine'] ?>"),
+						title: "<?= $row['Descrizione'] ?>",
+						display: 'auto',
 						editable: false,
 						startEditable: false,
 						durationEditable: false,
-						backgroundColor: (("<?= $row["Confermato"] ?>" == "1") ? "green" : "red"),
-						extendedProps: {partecipa: ("<?= $row["Confermato"] ?>" == 1) ? true : false}
+						backgroundColor: (("<?= $row['Confermato'] ?>" == "1") ? 'green' : 'red'),
+						extendedProps: {partecipa: ("<?= $row['Confermato'] ?>" == 1) ? true : false}
 					},
 				<?php endforeach; ?>
 			],
-			height: "70vh",
+			height: '70vh',
 			nowIndicator: true,
 			eventClick: (info) => selectAssembleaWithEvent(info.event)
 		});

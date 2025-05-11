@@ -1,9 +1,9 @@
 <?php
-	include "../../utils/conn.php";
-	include "../../utils/verifyAndStartSession.php";
+	include '../../utils/conn.php';
+	include '../../utils/verifyAndStartSession.php';
 
 	if(!in_array('Allenatore', $ruoli) && !in_array('Socio', $ruoli) && !in_array('Atleta', $ruoli)) {
-		die("Permessi insufficienti");
+		die('Permessi insufficienti');
 	}
 
 	// TODO aggiunta dataFine sul DB
@@ -15,22 +15,22 @@
 
 	$conditions = [];
 	$params = [];
-	$types = "";
+	$types = '';
 
-	if (isset($_GET["sport"]) && $_GET["sport"] != "") {
+	if (isset($_GET['sport']) && $_GET['sport'] != '') {
 		$conditions[] = "Sport = ?";
-		$params[] = $_GET["sport"];
-		$types .= "s";
+		$params[] = $_GET['sport'];
+		$types .= 's';
 	}
 
-	if (isset($_GET["campo"]) && $_GET["campo"] != "") {
+	if (isset($_GET['campo']) && $_GET['campo'] != '') {
 		$conditions[] = "Campo = ?";
-		$params[] = $_GET["campo"];
-		$types .= "s";
+		$params[] = $_GET['campo'];
+		$types .= 's';
 	}
 
 	if (!empty($conditions)) {
-		$query .= " WHERE " . implode(" AND ", $conditions);
+		$query .= " WHERE " . implode(' AND ', $conditions);
 	}
 
 	$stmt = $conn->prepare($query);

@@ -2,9 +2,9 @@
 	include '../../utils/conn.php';
 	include '../../utils/verifyAndStartSession.php';
 
-	$ruoli = $_SESSION["ruoli"];
+	$ruoli = $_SESSION['ruoli'];
 	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
-		die("Permessi insufficienti");
+		die('Permessi insufficienti');
 	}
 
 	// Su DB modificato, adesso pk di torneo è codice
@@ -18,7 +18,7 @@
 	$query = "SELECT T.Attivita, T.Sport, E_T.Anno, E_T.Sponsor, E_T.Documento FROM TORNEO T LEFT JOIN EDIZIONE_TORNEO E_T ON (T.Codice = E_T.Torneo) WHERE T.Codice = ?";
 
 	$stmt = $conn->prepare($query);
-	$stmt->bind_param("s", $codice);
+	$stmt->bind_param('s', $codice);
 	$stmt->execute();
 
 	$result = $stmt->get_result();
@@ -36,8 +36,8 @@
 
 <body class="bg-gray-50">
 	<?php 
-		$titleHeader = "Gestisci Edizioni Tornei";
-		$activeHeader = "gestisci-edizioni-tornei";
+		$titleHeader = 'Gestisci Edizioni Tornei';
+		$activeHeader = 'gestisci-edizioni-tornei';
 		include "../../partials/header.php";
 	?>
 

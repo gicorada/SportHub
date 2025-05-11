@@ -22,9 +22,9 @@
 
 <body class="bg-gray-50">
     <?php 
-        $titleHeader = "Visualizza Atti";
-        $activeHeader = "visualizza-atti";
-        include "../../partials/header.php";
+        $titleHeader = 'Visualizza Atti';
+        $activeHeader = 'visualizza-atti';
+        include '../../partials/header.php';
     ?>
 
 	<main class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">		
@@ -41,7 +41,7 @@
             <tbody>
                 <?php foreach($result as $row): ?>
                     <tr class="hover:bg-gray-50">
-                        <td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['NumProtocollo'])."/".htmlspecialchars($row['Anno']) ?></td>
+                        <td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['NumProtocollo']).'/'.htmlspecialchars($row['Anno']) ?></td>
                         <td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['Oggetto']) ?></td>
                         <td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['Data']) ?></td>
                         <td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['ODG']) ?></td>

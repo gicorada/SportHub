@@ -2,7 +2,7 @@
 	include '../../utils/conn.php';
 	include '../../utils/verifyAndStartSession.php';
 
-	$ruoli = $_SESSION["ruoli"];
+	$ruoli = $_SESSION['ruoli'];
 	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
 		die("Permessi insufficienti");
 	}
@@ -27,9 +27,9 @@
 
 <body class="bg-gray-50">
 	<?php 
-		$titleHeader = "Gestisci Attività";
-		$activeHeader = "gestisci-attivita";
-		include "../../partials/header.php";
+		$titleHeader = 'Gestisci Attività';
+		$activeHeader = 'gestisci-attivita';
+		include '../../partials/header.php';
 	?>
     
 	<main class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">		

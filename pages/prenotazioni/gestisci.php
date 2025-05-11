@@ -1,10 +1,10 @@
 <?php
-    include "../../utils/conn.php";
-    include "../../utils/verifyAndStartSession.php";
+    include '../../utils/conn.php';
+    include '../../utils/verifyAndStartSession.php';
 
-    $ruoli = $_SESSION["ruoli"];
+    $ruoli = $_SESSION['ruoli'];
 	if(!in_array('Allenatore', $ruoli) && !in_array('Socio', $ruoli)) {
-		die("Permessi insufficienti");
+		die('Permessi insufficienti');
 	}
 
     // TODO aggiunta dataFine sul DB
@@ -42,9 +42,9 @@
 </head>
 <body class="bg-gray-50">
     <?php 
-		$titleHeader = "Gestisci Prenotazioni";
-		$activeHeader = "prenota";
-		include "../../partials/header.php";
+		$titleHeader = 'Gestisci Prenotazioni';
+		$activeHeader = 'gestisci-prenotazioni';
+		include '../../partials/header.php';
 	?>
 
     <main class="max-w-7xl mx-auto p-6">
@@ -97,7 +97,7 @@
                 <select name="NumeroPrenotazione" id="prenotazione" class="mt-2 p-2 border rounded-md">
                     <option value="" disabled>-- Seleziona --</option>
                     <?php foreach($result as $row): ?>
-                        <option value="<?= $row['ID'] ?>"><?= $row["NomePrenotante"]." - ".$row["DataInizio"]." - ".$row["Campo"] ?></option>
+                        <option value="<?= $row['ID'] ?>"><?= htmlspecialchars($row['NomePrenotante']).' - '.htmlspecialchars($row['DataInizio']).' - '.htmlspecialchars($row['Campo']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -123,44 +123,44 @@
             events: [
                 <?php foreach($result as $row): ?>
                     {
-                        id: <?= $row["ID"] ?>,
+                        id: <?= $row['ID'] ?>,
                         allDay: false,
-                        start: new Date("<?= $row["DataInizio"] ?>"),
-                        end: new Date("<?= $row["DataFine"] ?>"),
-                        title: "<?= $row["NomePrenotante"]." - ".$row["Campo"]." (".$row["Sport"].")" ?>",
-                        display: "auto",
+                        start: new Date("<?= $row['DataInizio'] ?>"),
+                        end: new Date("<?= $row['DataFine'] ?>"),
+                        title: "<?= $row['NomePrenotante'].' - '.$row['Campo'].' ('.$row['Sport'].')' ?>",
+                        display: 'auto',
                         editable: false,
                         startEditable: false,
                         durationEditable: false,
-                        backgroundColor: (("<?= $row["Convalidatore"] ?>" != "") ? "green" : "red"),
-                        extendedProps: {convalidato: ("<?= $row["Convalidatore"] ?>" != "") ? true : false}
+                        backgroundColor: (("<?= $row['Convalidatore'] ?>" != "") ? 'green' : 'red'),
+                        extendedProps: {convalidato: ("<?= $row['Convalidatore'] ?>" != "") ? true : false}
                     },
                 <?php endforeach; ?>
             ],
-            height: "75vh",
+            height: '75vh',
             nowIndicator: true,
             eventClick: (info) => selectPrenotazioneWithEvent(info.event)
         });
 
-		document.getElementById("calendar-view").addEventListener("change", function () {
-			ec.setOption("view", this.value);
+		document.getElementById('calendar-view').addEventListener('change', function () {
+			ec.setOption('view', this.value);
 		});
 
-		document.getElementById("filter-sport").addEventListener("change", function () {
-			document.location.search = "sport=" + this.value;
+		document.getElementById('filter-sport').addEventListener('change', function () {
+			document.location.search = 'sport=' + this.value;
 		});
 
-		document.getElementById("filter-campo").addEventListener("change", function () {
-			document.location.search = "campo=" + this.value;
+		document.getElementById('filter-campo').addEventListener('change', function () {
+			document.location.search = 'campo=' + this.value;
 		});
 
         function selectPrenotazioneWithEvent(event) {
-            document.getElementById("prenotazione").value = event.id;
+            document.getElementById('prenotazione').value = event.id;
 
             if(event.extendedProps.convalidato) {
-                document.getElementById("true").checked = true;
+                document.getElementById('true').checked = true;
             } else {
-                document.getElementById("false").checked = true;
+                document.getElementById('false').checked = true;
             }
         }
     </script>

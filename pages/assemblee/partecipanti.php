@@ -10,7 +10,7 @@ if(empty($_POST['assembleaPart'])) {
 
 $assemblea = $_POST['assembleaPart'];
 
-$query = "SELECT P_A.Persona as CFPersona, CONCAT(P.Nome, ' ', P.Cognome) as NomePersona
+$query = "SELECT P_A.Persona as CFPersona, CONCAT(P.Nome, ' ', P.Cognome) as NomePersona, P_A.Confermato
 			FROM PARTECIPAZIONE_ASSEMBLEA P_A
 			JOIN PERSONA P ON (P_A.Persona = P.CF)
 			WHERE P_A.Assemblea = ?";
@@ -35,8 +35,8 @@ $result = $stmt->get_result();
 </head>
 <body class="bg-gray-50">
 	<?php 
-		$titleHeader = "Visualizza Partecipanti Assemblee";
-		$activeHeader = "partecipanti-assemblee";
+		$titleHeader = "Visualizza Invitati Assemblee";
+		$activeHeader = "invitati-assemblee";
 		include "../../partials/header.php";
 	?>
 
@@ -46,6 +46,7 @@ $result = $stmt->get_result();
 				<tr class="bg-gray-100">
 					<th>Nome</th>
 					<th>Codice Fiscale</th>
+					<th>Stato conferma</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -53,10 +54,35 @@ $result = $stmt->get_result();
 					<tr class="hover:bg-gray-50">
 						<td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['NomePersona']) ?></td>
 						<td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['CFPersona']) ?></td>
+						<td class="border border-gray-300 px-4 py-2"><?= htmlspecialchars($row['Confermato']) ? "<span class='text-green-700'>Partecipa</span>" : "<span class='text-red-700'>Non partecipa</span>" ?></td>
 					</tr>
 				<?php endforeach; ?>
+
+				<tr>
+					<td colspan="2" class="text-center border border-gray-300 px-4 py-2">
+						<button id="mostra-form" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">+ Invita una persona</button>
+					</td>
+				</tr>
+				<tr id="form-row" style="display: none;"></tr>
 			</tbody>
 		</table>
 	</main>
+
+	<script>
+		document.getElementById('mostra-form').addEventListener('click', function () {
+			const formRow = document.getElementById('form-row');
+			formRow.style.display = 'table-row';
+			formRow.innerHTML = `
+			<td colspan="2" class="border border-gray-300 px-4 py-2">
+				<form action="../../utils/assemblee/invita.php" method="POST" class="flex gap-4 justify-center">
+					<input type="hidden" name="NumeroAssemblea" value="<?= htmlspecialchars($assemblea) ?>">
+					<input type="text" name="persona" placeholder="CF Persona" minlength=16 maxlength=16 required class="border border-gray-300 rounded px-2 py-1">
+					<button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Invita</button>
+				</form>
+			</td>
+			`;
+			this.disabled = true;
+		});
+	</script>
 </body>
 </html>

@@ -2,10 +2,10 @@
 include "../../utils/conn.php";
 include "../../utils/verifyAndStartSession.php";
 
-$query = "SELECT Codice, Data, DataFine, ODG, Descrizione, CONCAT(P.Nome, ' ', P.Cognome) as Convocatore, P_A.Persona as Partecipa
+$query = "SELECT Codice, Data, DataFine, ODG, Descrizione, CONCAT(P.Nome, ' ', P.Cognome) as Convocatore, Confermato
 			FROM ASSEMBLEA A
 			JOIN PERSONA P ON (A.Convocatore = P.CF)
-			LEFT JOIN PARTECIPAZIONE_ASSEMBLEA P_A ON (A.Codice = P_A.Assemblea AND ? = P_A.Persona);";
+			JOIN PARTECIPAZIONE_ASSEMBLEA P_A ON (A.Codice = P_A.Assemblea AND ? = P_A.Persona);";
 
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $_SESSION["CF"]);
@@ -98,8 +98,8 @@ $result = $stmt->get_result();
 						editable: false,
 						startEditable: false,
 						durationEditable: false,
-						backgroundColor: (("<?= $row["Partecipa"] ?>" != "") ? "green" : "red"),
-						extendedProps: {partecipa: ("<?= $row["Partecipa"] ?>" != "") ? true : false}
+						backgroundColor: (("<?= $row["Confermato"] ?>" == "1") ? "green" : "red"),
+						extendedProps: {partecipa: ("<?= $row["Confermato"] ?>" == 1) ? true : false}
 					},
 				<?php endforeach; ?>
 			],

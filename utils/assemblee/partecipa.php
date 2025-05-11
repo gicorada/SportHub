@@ -11,9 +11,9 @@
 		$stato = htmlentities($_POST['Stato']);
 
 		if($stato == "true") {
-			$sql = "INSERT INTO PARTECIPAZIONE_ASSEMBLEA VALUES ( ?, ? )";
+			$sql = "UPDATE PARTECIPAZIONE_ASSEMBLEA SET Confermato = TRUE WHERE (Persona = ? AND Assemblea = ?)";
 		} else {
-			$sql = "DELETE FROM PARTECIPAZIONE_ASSEMBLEA WHERE (Persona = ? AND Assemblea = ?)";
+			$sql = "UPDATE PARTECIPAZIONE_ASSEMBLEA SET Confermato = FALSE WHERE (Persona = ? AND Assemblea = ?)";
 		}
 
 		$stmt = $conn->prepare($sql);

@@ -26,4 +26,5 @@
             header('Location: /pages/admin/gestisciEdizioniTornei.php');
         } else die ("Inserimento del campo non riuscito");
     } else die("Devi fornire i dati tramite POST");
+	$conn->close();
 ?>

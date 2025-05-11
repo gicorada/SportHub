@@ -1,14 +1,19 @@
 <?php
-include "../../utils/conn.php";
-include "../../utils/verifyAndStartSession.php";
+	include "../../utils/conn.php";
+	include "../../utils/verifyAndStartSession.php";
 
-// TODO aggiunta dataFine sul DB
-$query = "SELECT Codice, Data, DataFine, Descrizione FROM ASSEMBLEA A;";
+	$ruoli = $_SESSION["ruoli"];
+	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
+		die("Permessi insufficienti");
+	}
 
-$stmt = $conn->prepare($query);
-$stmt->execute();
+	// TODO aggiunta dataFine sul DB
+	$query = "SELECT Codice, Data, DataFine, Descrizione FROM ASSEMBLEA A;";
 
-$result = $stmt->get_result();
+	$stmt = $conn->prepare($query);
+	$stmt->execute();
+
+	$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>

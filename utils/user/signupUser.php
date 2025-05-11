@@ -26,5 +26,6 @@
             echo 'Utente creato con successo';
             header('Location: /login.html');
         }
-    }
+    } else die("Devi fornire i dati tramite POST");
+    $conn->close();
 ?>

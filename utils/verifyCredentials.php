@@ -48,7 +48,8 @@
 
             header('Location: ../dashboard.php');
         } else {
-            echo "Invalid credentials";
-        }   
-    }
+            die("Invalid credentials");
+        }
+    } else die("Devi fornire i dati tramite POST");
+    $conn->close();
 ?>

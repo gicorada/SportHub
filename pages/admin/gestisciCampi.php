@@ -1,19 +1,23 @@
 <?php
-include '../../utils/conn.php';
-include '../../utils/verifyAndStartSession.php';
+	include '../../utils/conn.php';
+	include '../../utils/verifyAndStartSession.php';
 
-$query = "SELECT Codice, Sport FROM CAMPO ORDER BY Codice";
+	$ruoli = $_SESSION["ruoli"];
+	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
+		die("Permessi insufficienti");
+	}
 
-$stmt = $conn->prepare($query);
-$stmt->execute();
+	$query = "SELECT Codice, Sport FROM CAMPO ORDER BY Codice";
 
-$result = $stmt->get_result();
+	$stmt = $conn->prepare($query);
+	$stmt->execute();
 
-$querySport = "SELECT Nome FROM SPORT";
-$stmtSport = $conn->prepare($querySport);
-$stmtSport->execute();
-$resultSport = $stmtSport->get_result();
+	$result = $stmt->get_result();
 
+	$querySport = "SELECT Nome FROM SPORT";
+	$stmtSport = $conn->prepare($querySport);
+	$stmtSport->execute();
+	$resultSport = $stmtSport->get_result();
 ?>
 
 <!DOCTYPE html>

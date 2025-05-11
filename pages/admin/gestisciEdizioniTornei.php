@@ -1,22 +1,27 @@
 <?php
-include '../../utils/conn.php';
-include '../../utils/verifyAndStartSession.php';
+	include '../../utils/conn.php';
+	include '../../utils/verifyAndStartSession.php';
 
-// Su DB modificato, adesso pk di torneo è codice
-if($_SERVER['REQUEST_METHOD'] != 'POST') header('Location: /pages/admin/gestisciTornei.php');
-if(empty($_POST['codice'])) {
-	die('Necessario fornire i dati');
-}
+	$ruoli = $_SESSION["ruoli"];
+	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
+		die("Permessi insufficienti");
+	}
 
-$codice = $_POST['codice'];
+	// Su DB modificato, adesso pk di torneo è codice
+	if($_SERVER['REQUEST_METHOD'] != 'POST') header('Location: /pages/admin/gestisciTornei.php');
+	if(empty($_POST['codice'])) {
+		die('Necessario fornire i dati');
+	}
 
-$query = "SELECT T.Attivita, T.Sport, E_T.Anno, E_T.Sponsor, E_T.Documento FROM TORNEO T LEFT JOIN EDIZIONE_TORNEO E_T ON (T.Codice = E_T.Torneo) WHERE T.Codice = ?";
+	$codice = $_POST['codice'];
 
-$stmt = $conn->prepare($query);
-$stmt->bind_param("s", $codice);
-$stmt->execute();
+	$query = "SELECT T.Attivita, T.Sport, E_T.Anno, E_T.Sponsor, E_T.Documento FROM TORNEO T LEFT JOIN EDIZIONE_TORNEO E_T ON (T.Codice = E_T.Torneo) WHERE T.Codice = ?";
 
-$result = $stmt->get_result();
+	$stmt = $conn->prepare($query);
+	$stmt->bind_param("s", $codice);
+	$stmt->execute();
+
+	$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>

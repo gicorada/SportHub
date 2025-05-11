@@ -1,25 +1,30 @@
 <?php
-include "../../utils/conn.php";
-include "../../utils/verifyAndStartSession.php";
+	include "../../utils/conn.php";
+	include "../../utils/verifyAndStartSession.php";
 
-// Su DB modificato, adesso pk di torneo è codice
-if($_SERVER['REQUEST_METHOD'] != 'POST') header('Location: /pages/assemblee/gestisci.php');
-if(empty($_POST['assembleaPart'])) {
-	die('Necessario fornire i dati');
-}
+	$ruoli = $_SESSION["ruoli"];
+	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
+		die("Permessi insufficienti");
+	}
 
-$assemblea = $_POST['assembleaPart'];
+	if($_SERVER['REQUEST_METHOD'] != 'POST') header('Location: /pages/assemblee/gestisci.php');
+	if(empty($_POST['assembleaPart'])) {
+		die('Necessario fornire i dati');
+	}
 
-$query = "SELECT P_A.Persona as CFPersona, CONCAT(P.Nome, ' ', P.Cognome) as NomePersona, P_A.Confermato
-			FROM PARTECIPAZIONE_ASSEMBLEA P_A
-			JOIN PERSONA P ON (P_A.Persona = P.CF)
-			WHERE P_A.Assemblea = ?";
+	$assemblea = $_POST['assembleaPart'];
 
-$stmt = $conn->prepare($query);
-$stmt->bind_param("s", $assemblea);
-$stmt->execute();
+	// Aggiunta di Confermato su DB
+	$query = "SELECT P_A.Persona as CFPersona, CONCAT(P.Nome, ' ', P.Cognome) as NomePersona, P_A.Confermato
+				FROM PARTECIPAZIONE_ASSEMBLEA P_A
+				JOIN PERSONA P ON (P_A.Persona = P.CF)
+				WHERE P_A.Assemblea = ?";
 
-$result = $stmt->get_result();
+	$stmt = $conn->prepare($query);
+	$stmt->bind_param("s", $assemblea);
+	$stmt->execute();
+
+	$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>

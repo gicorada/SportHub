@@ -1,27 +1,32 @@
 <?php
-include "../../utils/conn.php";
-include "../../utils/verifyAndStartSession.php";
+    include "../../utils/conn.php";
+    include "../../utils/verifyAndStartSession.php";
 
-// TODO aggiunta dataFine sul DB
-$query = "SELECT ID, Prenotante, CONCAT(PE.Nome, ' ', PE.Cognome) as NomePrenotante, Campo, Sport, DataInizio, DataFine, Convalidatore, Attivita
-			FROM PRENOTAZIONE PR
-			JOIN PERSONA PE ON (PR.Prenotante = PE.CF)
-			JOIN CAMPO C ON (PR.Campo = C.Codice);";
+    $ruoli = $_SESSION["ruoli"];
+	if(!in_array('Allenatore', $ruoli) && !in_array('Socio', $ruoli)) {
+		die("Permessi insufficienti");
+	}
 
-$stmt = $conn->prepare($query);
-$stmt->execute();
+    // TODO aggiunta dataFine sul DB
+    $query = "SELECT ID, Prenotante, CONCAT(PE.Nome, ' ', PE.Cognome) as NomePrenotante, Campo, Sport, DataInizio, DataFine, Convalidatore, Attivita
+                FROM PRENOTAZIONE PR
+                JOIN PERSONA PE ON (PR.Prenotante = PE.CF)
+                JOIN CAMPO C ON (PR.Campo = C.Codice);";
 
-$result = $stmt->get_result();
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
 
-$queryCampo = "SELECT Codice, Sport FROM CAMPO";
-$stmtCampo = $conn->prepare($queryCampo);
-$stmtCampo->execute();
-$resultCampo = $stmtCampo->get_result();
+    $result = $stmt->get_result();
 
-$queryAttivita = "SELECT Nome FROM ATTIVITA";
-$stmtAttivita = $conn->prepare($queryAttivita);
-$stmtAttivita->execute();
-$resultAttivita = $stmtAttivita->get_result();
+    $queryCampo = "SELECT Codice, Sport FROM CAMPO";
+    $stmtCampo = $conn->prepare($queryCampo);
+    $stmtCampo->execute();
+    $resultCampo = $stmtCampo->get_result();
+
+    $queryAttivita = "SELECT Nome FROM ATTIVITA";
+    $stmtAttivita = $conn->prepare($queryAttivita);
+    $stmtAttivita->execute();
+    $resultAttivita = $stmtAttivita->get_result();
 ?>
 
 <!DOCTYPE html>

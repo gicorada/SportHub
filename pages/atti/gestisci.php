@@ -1,33 +1,38 @@
 <?php
-include "../../utils/conn.php";
-include "../../utils/verifyAndStartSession.php";
+    include "../../utils/conn.php";
+    include "../../utils/verifyAndStartSession.php";
 
-$queryAtto = "SELECT NumProtocollo, Anno FROM ATTO";
-$stmtAtto = $conn->prepare($queryAtto);
-$stmtAtto->execute();
-$resultAtto = $stmtAtto->get_result();
-if($resultAtto->num_rows == 0){
-    echo "Nessun atto trovato";
-}
-$stmtAtto->close();
+    $ruoli = $_SESSION["ruoli"];
+	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
+		die("Permessi insufficienti");
+	}
 
-$queryPersone = "SELECT CF, Nome, Cognome FROM PERSONA";
-$stmtPersone = $conn->prepare($queryPersone);
-$stmtPersone->execute();
-$resultPersone = $stmtPersone->get_result();
-if($resultPersone->num_rows == 0){
-    echo "Nessuna persona trovata";
-}
-$stmtPersone->close();
+    $queryAtto = "SELECT NumProtocollo, Anno FROM ATTO";
+    $stmtAtto = $conn->prepare($queryAtto);
+    $stmtAtto->execute();
+    $resultAtto = $stmtAtto->get_result();
+    if($resultAtto->num_rows == 0){
+        echo "Nessun atto trovato";
+    }
+    $stmtAtto->close();
 
-$queryCarica = "SELECT Nome FROM CARICA";
-$stmtCarica = $conn->prepare($queryCarica);
-$stmtCarica->execute();
-$resultCarica = $stmtCarica->get_result();
-if($resultCarica->num_rows == 0){
-    echo "Nessuna carica trovata";
-}
-$stmtCarica->close();
+    $queryPersone = "SELECT CF, Nome, Cognome FROM PERSONA";
+    $stmtPersone = $conn->prepare($queryPersone);
+    $stmtPersone->execute();
+    $resultPersone = $stmtPersone->get_result();
+    if($resultPersone->num_rows == 0){
+        echo "Nessuna persona trovata";
+    }
+    $stmtPersone->close();
+
+    $queryCarica = "SELECT Nome FROM CARICA";
+    $stmtCarica = $conn->prepare($queryCarica);
+    $stmtCarica->execute();
+    $resultCarica = $stmtCarica->get_result();
+    if($resultCarica->num_rows == 0){
+        echo "Nessuna carica trovata";
+    }
+    $stmtCarica->close();
 
 ?>
 

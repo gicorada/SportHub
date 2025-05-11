@@ -63,4 +63,5 @@
             header('Location: /pages/private/datiPersonali.php');
         } else die ('Modifica dei dati personali non riuscita');
     } else die('Devi fornire i dati tramite POST');
+	$conn->close();
 ?>

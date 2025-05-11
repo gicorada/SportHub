@@ -1,17 +1,16 @@
 <?php
-include '../../utils/conn.php';
-include '../../utils/verifyAndStartSession.php';
+	include '../../utils/conn.php';
+	include '../../utils/verifyAndStartSession.php';
 
-$CF = $_SESSION['CF'];
+	$CF = $_SESSION['CF'];
 
-$query = "SELECT NumTel FROM CONTATTO WHERE Persona = ?;";
+	$query = "SELECT NumTel FROM CONTATTO WHERE Persona = ?;";
 
-$stmt = $conn->prepare($query);
-$stmt->bind_param('s', $CF);
-$stmt->execute();
+	$stmt = $conn->prepare($query);
+	$stmt->bind_param('s', $CF);
+	$stmt->execute();
 
-$result = $stmt->get_result();
-
+	$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>

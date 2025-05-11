@@ -20,4 +20,5 @@
             header('Location: /pages/private/telefono.php');
         } else die ("Inserimento del numero di telefono non riuscito");
     } else die("Devi fornire i dati tramite POST");
+	$conn->close();
 ?>

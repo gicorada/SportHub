@@ -1,17 +1,17 @@
 <?php
-include "../../utils/conn.php";
-include "../../utils/verifyAndStartSession.php";
+	include "../../utils/conn.php";
+	include "../../utils/verifyAndStartSession.php";
 
-$query = "SELECT Codice, Data, DataFine, ODG, Descrizione, CONCAT(P.Nome, ' ', P.Cognome) as Convocatore, Confermato
-			FROM ASSEMBLEA A
-			JOIN PERSONA P ON (A.Convocatore = P.CF)
-			JOIN PARTECIPAZIONE_ASSEMBLEA P_A ON (A.Codice = P_A.Assemblea AND ? = P_A.Persona);";
+	$query = "SELECT Codice, Data, DataFine, ODG, Descrizione, CONCAT(P.Nome, ' ', P.Cognome) as Convocatore, Confermato
+				FROM ASSEMBLEA A
+				JOIN PERSONA P ON (A.Convocatore = P.CF)
+				JOIN PARTECIPAZIONE_ASSEMBLEA P_A ON (A.Codice = P_A.Assemblea AND ? = P_A.Persona);";
 
-$stmt = $conn->prepare($query);
-$stmt->bind_param("s", $_SESSION["CF"]);
-$stmt->execute();
+	$stmt = $conn->prepare($query);
+	$stmt->bind_param("s", $_SESSION["CF"]);
+	$stmt->execute();
 
-$result = $stmt->get_result();
+	$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>

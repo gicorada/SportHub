@@ -1,52 +1,56 @@
 <?php
-include "../../utils/conn.php";
-include "../../utils/verifyAndStartSession.php";
+	include "../../utils/conn.php";
+	include "../../utils/verifyAndStartSession.php";
 
-// TODO aggiunta dataFine sul DB
-// TODO aggiunta FK convalidatore sul DB
-$query = "SELECT ID, Prenotante, CONCAT(PE.Nome, ' ', PE.Cognome) as NomePrenotante, Campo, Sport, DataInizio, DataFine, Convalidatore, Attivita
-			FROM PRENOTAZIONE PR
-			JOIN PERSONA PE ON (PR.Prenotante = PE.CF)
-			JOIN CAMPO C ON (PR.Campo = C.Codice)";
+	if(!in_array('Allenatore', $ruoli) && !in_array('Socio', $ruoli) && !in_array('Atleta', $ruoli)) {
+		die("Permessi insufficienti");
+	}
 
-$conditions = [];
-$params = [];
-$types = "";
+	// TODO aggiunta dataFine sul DB
+	// TODO aggiunta FK convalidatore sul DB
+	$query = "SELECT ID, Prenotante, CONCAT(PE.Nome, ' ', PE.Cognome) as NomePrenotante, Campo, Sport, DataInizio, DataFine, Convalidatore, Attivita
+				FROM PRENOTAZIONE PR
+				JOIN PERSONA PE ON (PR.Prenotante = PE.CF)
+				JOIN CAMPO C ON (PR.Campo = C.Codice)";
 
-if (isset($_GET["sport"]) && $_GET["sport"] != "") {
-	$conditions[] = "Sport = ?";
-	$params[] = $_GET["sport"];
-	$types .= "s";
-}
+	$conditions = [];
+	$params = [];
+	$types = "";
 
-if (isset($_GET["campo"]) && $_GET["campo"] != "") {
-	$conditions[] = "Campo = ?";
-	$params[] = $_GET["campo"];
-	$types .= "s";
-}
+	if (isset($_GET["sport"]) && $_GET["sport"] != "") {
+		$conditions[] = "Sport = ?";
+		$params[] = $_GET["sport"];
+		$types .= "s";
+	}
 
-if (!empty($conditions)) {
-	$query .= " WHERE " . implode(" AND ", $conditions);
-}
+	if (isset($_GET["campo"]) && $_GET["campo"] != "") {
+		$conditions[] = "Campo = ?";
+		$params[] = $_GET["campo"];
+		$types .= "s";
+	}
 
-$stmt = $conn->prepare($query);
+	if (!empty($conditions)) {
+		$query .= " WHERE " . implode(" AND ", $conditions);
+	}
 
-if (!empty($params)) {
-	$stmt->bind_param($types, ...$params);
-}
+	$stmt = $conn->prepare($query);
 
-$stmt->execute();
-$result = $stmt->get_result();
+	if (!empty($params)) {
+		$stmt->bind_param($types, ...$params);
+	}
 
-$queryCampo = "SELECT Codice, Sport FROM CAMPO";
-$stmtCampo = $conn->prepare($queryCampo);
-$stmtCampo->execute();
-$resultCampo = $stmtCampo->get_result();
+	$stmt->execute();
+	$result = $stmt->get_result();
 
-$queryAttivita = "SELECT Nome FROM ATTIVITA";
-$stmtAttivita = $conn->prepare($queryAttivita);
-$stmtAttivita->execute();
-$resultAttivita = $stmtAttivita->get_result();
+	$queryCampo = "SELECT Codice, Sport FROM CAMPO";
+	$stmtCampo = $conn->prepare($queryCampo);
+	$stmtCampo->execute();
+	$resultCampo = $stmtCampo->get_result();
+
+	$queryAttivita = "SELECT Nome FROM ATTIVITA";
+	$stmtAttivita = $conn->prepare($queryAttivita);
+	$stmtAttivita->execute();
+	$resultAttivita = $stmtAttivita->get_result();
 ?>
 
 <!DOCTYPE html>

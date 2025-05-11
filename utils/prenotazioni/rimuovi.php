@@ -1,42 +1,46 @@
 <?php
-include "../../utils/conn.php";
-include "../../utils/verifyAndStartSession.php";
+	include "../../utils/conn.php";
+	include "../../utils/verifyAndStartSession.php";
 
-$ruoli = $_SESSION["ruoli"];
+	$ruoli = $_SESSION["ruoli"];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$id = $_POST["prenotazioneRimuovi"];
-	$CF = $_SESSION["CF"];
+	if(!in_array('Allenatore', $ruoli) && !in_array('Socio', $ruoli) && !in_array('Atleta', $ruoli)) {
+		die("Permessi insufficienti");
+	}
 
-	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
-		// Controlla se il campo è già prenotato in quell'intervallo di tempo
-		$queryPrenotato = "SELECT Prenotante FROM PRENOTAZIONE WHERE ID = ?";
-		$stmtPrenotato = $conn->prepare($queryPrenotato);
-		$stmtPrenotato->bind_param("s", $id);
-		$stmtPrenotato->execute();
-		$resultPrenotato = $stmtPrenotato->get_result();
-		$rowPrenotato = $resultPrenotato->fetch_assoc();
-		if ($rowPrenotato['Prenotante'] != $CF) {
-			echo "<script>alert('Non puoi rimuovere una prenotazione non tua!');</script>";
-			exit();
+
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		if(empty($_POST['prenotazioneRimuovi'])) {
+			die("Necessario fornire i dati");
 		}
-		$stmtPrenotato->close();
+
+		$id = $_POST["prenotazioneRimuovi"];
+		$CF = $_SESSION["CF"];
+
+		if(!in_array('Allenatore', $ruoli) && !in_array('Socio', $ruoli)) {
+			$queryPrenotato = "SELECT Prenotante FROM PRENOTAZIONE WHERE ID = ?";
+			$stmtPrenotato = $conn->prepare($queryPrenotato);
+			$stmtPrenotato->bind_param("s", $id);
+			$stmtPrenotato->execute();
+			$resultPrenotato = $stmtPrenotato->get_result();
+			$rowPrenotato = $resultPrenotato->fetch_assoc();
+			if ($rowPrenotato['Prenotante'] != $CF) {
+				die("Non puoi rimuovere una prenotazione non tua!");
+			}
+			$stmtPrenotato->close();
+		}
+
+		$query = "DELETE FROM PRENOTAZIONE WHERE ID = ?";
+		$stmt = $conn->prepare($query);
+		$stmt->bind_param("s", $id);
+
+		if ($stmt->execute()) {
+			header("Location: /pages/prenotazioni/prenota.php");
+		} else {
+			die('Errore durante la rimozione della prenotazione.');
+		}
+
+		$stmt->close();
 	}
-
-	// Prepara la query
-	$query = "DELETE FROM PRENOTAZIONE WHERE ID = ?";
-	$stmt = $conn->prepare($query);
-	$stmt->bind_param("s", $id);
-
-	// Esegui la query
-	if ($stmt->execute()) {
-		echo "<script>alert('Prenotazione rimossa con successo!');</script>";
-		header("Location: /pages/prenotazioni/prenota.php");
-		exit();
-	} else {
-		echo "<script>alert('Errore durante la rimozione della prenotazione.');</script>";
-	}
-
-	// Chiudi la connessione
-	$stmt->close();
-}
+	$conn->close();
+?>

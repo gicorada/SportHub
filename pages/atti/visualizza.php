@@ -1,14 +1,13 @@
 <?php
-include '../../utils/conn.php';
-include '../../utils/verifyAndStartSession.php';
+    include '../../utils/conn.php';
+    include '../../utils/verifyAndStartSession.php';
 
-$query = "SELECT NumProtocollo, Anno, Data, Oggetto, ODG, Testo FROM ATTO";
+    $query = "SELECT NumProtocollo, Anno, Data, Oggetto, ODG, Testo FROM ATTO";
 
-$stmt = $conn->prepare($query);
-$stmt->execute();
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
 
-$result = $stmt->get_result();
-
+    $result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>

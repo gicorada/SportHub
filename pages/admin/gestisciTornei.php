@@ -1,20 +1,25 @@
 <?php
-include '../../utils/conn.php';
-include '../../utils/verifyAndStartSession.php';
+	include '../../utils/conn.php';
+	include '../../utils/verifyAndStartSession.php';
 
-// Su DB modificato, adesso pk di torneo è codice
-$query = "SELECT Codice, Attivita, Sport FROM TORNEO T";
+	$ruoli = $_SESSION["ruoli"];
+	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
+		die("Permessi insufficienti");
+	}
 
-$stmt = $conn->prepare($query);
-$stmt->execute();
+	// Su DB modificato, adesso pk di torneo è codice
+	$query = "SELECT Codice, Attivita, Sport FROM TORNEO T";
 
-$result = $stmt->get_result();
+	$stmt = $conn->prepare($query);
+	$stmt->execute();
 
-$attivitaQuery = "SELECT Nome FROM ATTIVITA";
-$attivitaResult = $conn->query($attivitaQuery);
+	$result = $stmt->get_result();
 
-$sportQuery = "SELECT Nome FROM SPORT";
-$sportResult = $conn->query($sportQuery);
+	$attivitaQuery = "SELECT Nome FROM ATTIVITA";
+	$attivitaResult = $conn->query($attivitaQuery);
+
+	$sportQuery = "SELECT Nome FROM SPORT";
+	$sportResult = $conn->query($sportQuery);
 
 ?>
 

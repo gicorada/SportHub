@@ -2,6 +2,10 @@
     include '../conn.php';
 	include '../verifyAndStartSession.php';
 
+	if(!in_array('Presidente', $ruoli) && !in_array('Consigliere', $ruoli) && !in_array('Socio', $ruoli)) {
+		die("Permessi insufficienti");
+	}
+
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		if(empty($_POST['NumeroAssemblea']) || empty($_POST['persona'])) {
 			die("Necessario fornire i dati");
@@ -26,4 +30,5 @@
 			  </script>";
         } else die ("Modifica della partecipazione non riuscita");
     } else die("Devi fornire i dati tramite POST");
+	$conn->close();
 ?>

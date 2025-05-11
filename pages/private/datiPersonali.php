@@ -1,34 +1,34 @@
 <?php
-include '../../utils/conn.php';
-include '../../utils/verifyAndStartSession.php';
+	include '../../utils/conn.php';
+	include '../../utils/verifyAndStartSession.php';
 
-$CF = $_SESSION['CF'];
-$ruoli = $_SESSION['ruoli'];
+	$CF = $_SESSION['CF'];
+	$ruoli = $_SESSION['ruoli'];
 
-$query = "SELECT Nome, Cognome, Email, TipoAtleta, TipoPersonale, SportPraticato
-			FROM PERSONA P
-			WHERE CF = ?;";
+	$query = "SELECT Nome, Cognome, Email, TipoAtleta, TipoPersonale, SportPraticato
+				FROM PERSONA P
+				WHERE CF = ?;";
 
-$stmt = $conn->prepare($query);
-$stmt->bind_param('s', $CF);
-$stmt->execute();
+	$stmt = $conn->prepare($query);
+	$stmt->bind_param('s', $CF);
+	$stmt->execute();
 
-$result = $stmt->get_result();
-$row = $result->fetch_assoc();
+	$result = $stmt->get_result();
+	$row = $result->fetch_assoc();
 
-$nome = htmlspecialchars($row['Nome']);
-$cognome = htmlspecialchars($row['Cognome']);
-$email = htmlspecialchars($row['Email']);
+	$nome = htmlspecialchars($row['Nome']);
+	$cognome = htmlspecialchars($row['Cognome']);
+	$email = htmlspecialchars($row['Email']);
 
-if(in_array('Altro personale', $ruoli)) {
-	$tipopersonale = htmlspecialchars($row['TipoPersonale']);
-}
+	if(in_array('Altro personale', $ruoli)) {
+		$tipopersonale = htmlspecialchars($row['TipoPersonale']);
+	}
 
-if(in_array('Atleta', $ruoli)) {
-	$sportQuery = "SELECT Nome FROM SPORT";
-	$sportResult = $conn->query($sportQuery);
-	$tipoatleta = htmlspecialchars($row['TipoAtleta']);
-	$sportpraticato = htmlspecialchars($row['SportPraticato']);
+	if(in_array('Atleta', $ruoli)) {
+		$sportQuery = "SELECT Nome FROM SPORT";
+		$sportResult = $conn->query($sportQuery);
+		$tipoatleta = htmlspecialchars($row['TipoAtleta']);
+		$sportpraticato = htmlspecialchars($row['SportPraticato']);
 }
 
 ?>

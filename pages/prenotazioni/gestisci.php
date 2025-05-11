@@ -12,6 +12,16 @@ $stmt = $conn->prepare($query);
 $stmt->execute();
 
 $result = $stmt->get_result();
+
+$queryCampo = "SELECT Codice, Sport FROM CAMPO";
+$stmtCampo = $conn->prepare($queryCampo);
+$stmtCampo->execute();
+$resultCampo = $stmtCampo->get_result();
+
+$queryAttivita = "SELECT Nome FROM ATTIVITA";
+$stmtAttivita = $conn->prepare($queryAttivita);
+$stmtAttivita->execute();
+$resultAttivita = $stmtAttivita->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -37,13 +47,37 @@ $result = $stmt->get_result();
 			<div class="flex justify-between items-center">
 				<h1 class="text-2xl font-bold">Calendario Prenotazioni</h1>
 
-				<div>
-					<label for="calendar-view" class="mr-2 font-medium">Vista</label>
-					<select id="calendar-view" class="border-gray-300 rounded-md shadow-sm">
-						<option value="timeGridDay">Giorno</option>
-						<option value="timeGridWeek" selected>Settimana</option>
-						<option value="dayGridMonth">Mese</option>
-					</select>
+				<div class="flex items-right gap-4">
+					<div>
+						<label for="filter-campo" class="mr-2 font-medium">Campo</label>
+						<select id="filter-campo" class="mt-2 p-2 border rounded-md">
+							<option value="" disabled>Seleziona Campo<option>
+							<?php while($rowCampo = $resultCampo->fetch_assoc()): ?>
+								<option value="<?= $rowCampo['Codice'] ?>" <?= (($rowCampo['Codice'] == ($_GET['campo'] ?? '')) ? 'selected' : '')?>><?= $rowCampo['Codice'] ?></option>
+							<?php endwhile; ?>
+							<?php $resultCampo->data_seek(0); // Reset result set pointer ?>
+						</select>
+					</div>
+
+					<div>
+						<label for="filter-sport" class="mr-2 font-medium">Sport</label>
+						<select id="filter-sport" class="mt-2 p-2 border rounded-md">
+							<option value="" disabled>Seleziona Sport<option>
+							<?php while($rowSport = $resultCampo->fetch_assoc()): ?>
+								<option value="<?= $rowSport['Sport'] ?>" <?= (($rowSport['Sport'] == ($_GET['sport'] ?? '')) ? 'selected' : '')?>><?= $rowSport['Sport'] ?></option>
+							<?php endwhile; ?>
+							<?php $resultCampo->data_seek(0); // Reset result set pointer ?>
+						</select>
+					</div>
+	
+					<div>
+						<label for="calendar-view" class="mr-2 font-medium">Vista</label>
+						<select id="calendar-view" class="mt-2 p-2 border rounded-md">
+							<option value="timeGridDay">Giorno</option>
+							<option value="timeGridWeek" selected>Settimana</option>
+							<option value="dayGridMonth">Mese</option>
+						</select>
+					</div>
 				</div>
 			</div>
 
@@ -105,6 +139,14 @@ $result = $stmt->get_result();
 
 		document.getElementById("calendar-view").addEventListener("change", function () {
 			ec.setOption("view", this.value);
+		});
+
+		document.getElementById("filter-sport").addEventListener("change", function () {
+			document.location.search = "sport=" + this.value;
+		});
+
+		document.getElementById("filter-campo").addEventListener("change", function () {
+			document.location.search = "campo=" + this.value;
 		});
 
         function selectPrenotazioneWithEvent(event) {

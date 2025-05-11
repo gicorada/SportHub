@@ -9,16 +9,33 @@ $query = "SELECT ID, Prenotante, CONCAT(PE.Nome, ' ', PE.Cognome) as NomePrenota
 			JOIN PERSONA PE ON (PR.Prenotante = PE.CF)
 			JOIN CAMPO C ON (PR.Campo = C.Codice)";
 
-if(isset($_GET["sport"]) && $_GET["sport"] != "") {
-	$sportDaFiltrare = $_GET["sport"];
-	$query .= " WHERE Sport = ?";
-	$stmt = $conn->prepare($query);
-	$stmt->bind_param("s", $sportDaFiltrare);
-	$stmt->execute();
-} else {
-	$stmt = $conn->prepare($query);
-	$stmt->execute();
+$conditions = [];
+$params = [];
+$types = "";
+
+if (isset($_GET["sport"]) && $_GET["sport"] != "") {
+	$conditions[] = "Sport = ?";
+	$params[] = $_GET["sport"];
+	$types .= "s";
 }
+
+if (isset($_GET["campo"]) && $_GET["campo"] != "") {
+	$conditions[] = "Campo = ?";
+	$params[] = $_GET["campo"];
+	$types .= "s";
+}
+
+if (!empty($conditions)) {
+	$query .= " WHERE " . implode(" AND ", $conditions);
+}
+
+$stmt = $conn->prepare($query);
+
+if (!empty($params)) {
+	$stmt->bind_param($types, ...$params);
+}
+
+$stmt->execute();
 $result = $stmt->get_result();
 
 $queryCampo = "SELECT Codice, Sport FROM CAMPO";
@@ -55,12 +72,24 @@ $resultAttivita = $stmtAttivita->get_result();
 
 				<div class="flex items-right gap-4">
 					<div>
-						<label for="filter-sport" class="mr-2 font-medium">Filtra</label>
+						<label for="filter-campo" class="mr-2 font-medium">Campo</label>
+						<select id="filter-campo" class="mt-2 p-2 border rounded-md">
+							<option value="" disabled>Seleziona Campo<option>
+							<?php while($rowCampo = $resultCampo->fetch_assoc()): ?>
+								<option value="<?= $rowCampo['Codice'] ?>" <?= (($rowCampo['Codice'] == ($_GET['campo'] ?? '')) ? 'selected' : '')?>><?= $rowCampo['Codice'] ?></option>
+							<?php endwhile; ?>
+							<?php $resultCampo->data_seek(0); // Reset result set pointer ?>
+						</select>
+					</div>
+
+					<div>
+						<label for="filter-sport" class="mr-2 font-medium">Sport</label>
 						<select id="filter-sport" class="mt-2 p-2 border rounded-md">
 							<option value="" disabled>Seleziona Sport<option>
 							<?php while($rowSport = $resultCampo->fetch_assoc()): ?>
 								<option value="<?= $rowSport['Sport'] ?>" <?= (($rowSport['Sport'] == ($_GET['sport'] ?? '')) ? 'selected' : '')?>><?= $rowSport['Sport'] ?></option>
 							<?php endwhile; ?>
+							<?php $resultCampo->data_seek(0); // Reset result set pointer ?>
 						</select>
 					</div>
 	
@@ -169,6 +198,10 @@ $resultAttivita = $stmtAttivita->get_result();
 
 		document.getElementById("filter-sport").addEventListener("change", function () {
 			document.location.search = "sport=" + this.value;
+		});
+
+		document.getElementById("filter-campo").addEventListener("change", function () {
+			document.location.search = "campo=" + this.value;
 		});
 
         function selectPrenotazioneWithEvent(event) {

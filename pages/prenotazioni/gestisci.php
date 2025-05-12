@@ -58,7 +58,7 @@
 						<select id="filter-campo" class="mt-2 p-2 border rounded-md">
 							<option value="" disabled>Seleziona Campo<option>
 							<?php while($rowCampo = $resultCampo->fetch_assoc()): ?>
-								<option value="<?= $rowCampo['Codice'] ?>" <?= (($rowCampo['Codice'] == ($_GET['campo'] ?? '')) ? 'selected' : '')?>><?= $rowCampo['Codice'] ?></option>
+								<option value="<?= $rowCampo['Codice'] ?>" <?= (($rowCampo['Codice'] == ($_GET['campo'] ?? '')) ? 'selected' : '')?>><?= htmlspecialchars($rowCampo['Codice']) ?></option>
 							<?php endwhile; ?>
 							<?php $resultCampo->data_seek(0); // Reset result set pointer ?>
 						</select>
@@ -69,7 +69,7 @@
 						<select id="filter-sport" class="mt-2 p-2 border rounded-md">
 							<option value="" disabled>Seleziona Sport<option>
 							<?php while($rowSport = $resultCampo->fetch_assoc()): ?>
-								<option value="<?= $rowSport['Sport'] ?>" <?= (($rowSport['Sport'] == ($_GET['sport'] ?? '')) ? 'selected' : '')?>><?= $rowSport['Sport'] ?></option>
+								<option value="<?= $rowSport['Sport'] ?>" <?= (($rowSport['Sport'] == ($_GET['sport'] ?? '')) ? 'selected' : '')?>><?= htmlspecialchars($rowSport['Sport']) ?></option>
 							<?php endwhile; ?>
 							<?php $resultCampo->data_seek(0); // Reset result set pointer ?>
 						</select>

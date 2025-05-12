@@ -80,7 +80,7 @@
 						<select id="filter-campo" class="mt-2 p-2 border rounded-md">
 							<option value="" disabled>Seleziona Campo<option>
 							<?php while($rowCampo = $resultCampo->fetch_assoc()): ?>
-								<option value="<?= $rowCampo['Codice'] ?>" <?= (($rowCampo['Codice'] == ($_GET['campo'] ?? '')) ? 'selected' : '')?>><?= $rowCampo['Codice'] ?></option>
+								<option value="<?= $rowCampo['Codice'] ?>" <?= (($rowCampo['Codice'] == ($_GET['campo'] ?? '')) ? 'selected' : '')?>><?= htmlspecialchars($rowCampo['Codice']) ?></option>
 							<?php endwhile; ?>
 							<?php $resultCampo->data_seek(0); // Reset result set pointer ?>
 						</select>
@@ -91,7 +91,7 @@
 						<select id="filter-sport" class="mt-2 p-2 border rounded-md">
 							<option value="" disabled>Seleziona Sport<option>
 							<?php while($rowSport = $resultCampo->fetch_assoc()): ?>
-								<option value="<?= $rowSport['Sport'] ?>" <?= (($rowSport['Sport'] == ($_GET['sport'] ?? '')) ? 'selected' : '')?>><?= $rowSport['Sport'] ?></option>
+								<option value="<?= $rowSport['Sport'] ?>" <?= (($rowSport['Sport'] == ($_GET['sport'] ?? '')) ? 'selected' : '')?>><?= htmlspecialchars($rowSport['Sport']) ?></option>
 							<?php endwhile; ?>
 							<?php $resultCampo->data_seek(0); // Reset result set pointer ?>
 						</select>
@@ -130,7 +130,7 @@
 				<select name="campo" id="campo" required class="mt-2 p-3 border rounded-md w-full">
 					<option value="" disabled>-- Seleziona --</option>
 					<?php while($rowCampo = $resultCampo->fetch_assoc()): ?>
-						<option value="<?= $rowCampo['Codice'] ?>"><?= $rowCampo['Codice'] ?> - <?= $rowCampo['Sport'] ?></option>
+						<option value="<?= $rowCampo['Codice'] ?>"><?= htmlspecialchars($rowCampo['Codice'])?> - <?= htmlspecialchars($rowCampo['Sport']) ?></option>
 					<?php endwhile; ?>
 				</select>
 			</div>
@@ -140,7 +140,7 @@
 				<select name="attivita" id="attivita" required class="mt-2 p-3 border rounded-md w-full">
 					<option value="">-- Seleziona --</option>
 					<?php while($rowAttivita = $resultAttivita->fetch_assoc()): ?>
-						<option value="<?= $rowAttivita['Nome'] ?>"><?= $rowAttivita['Nome'] ?></option>
+						<option value="<?= $rowAttivita['Nome'] ?>"><?= htmlspecialchars($rowAttivita['Nome']) ?></option>
 					<?php endwhile; ?>
 				</select>
 			</div>
@@ -159,7 +159,7 @@
                 <select name="prenotazioneRimuovi" id="prenotazioneRimuovi" required class="mt-2 p-3 border rounded-md w-full">
                     <option value="">-- Seleziona --</option>
                     <?php foreach($result as $row): ?>
-                        <option value="<?= $row['ID'] ?>"><?= $row['ID'] ?> - <?= $row["DataInizio"] ?></option>
+                        <option value="<?= $row['ID'] ?>"><?= htmlspecialchars($row['ID']) ?> - <?= htmlspecialchars($row["DataInizio"]) ?></option>
                     <?php endforeach; ?>
                 </select>
 			</div>

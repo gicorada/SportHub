@@ -93,13 +93,13 @@
 						<select name="attivita" id="attivita" class="mt-2 p-2 border rounded-md">
 							<option value="" disabled selected>Seleziona attività</option>
 							<?php foreach($attivitaResult as $attivitaRow): ?>
-								<option value="<?= $attivitaRow['Nome']?>"><?= $attivitaRow['Nome'] ?></option>
+								<option value="<?= $attivitaRow['Nome']?>"><?= htmlspecialchars($attivitaRow['Nome']) ?></option>
 							<?php endforeach; ?>
 						</select>
 						<select name="sport" id="sport" class="mt-2 p-2 border rounded-md">
 							<option value="" disabled selected>Seleziona sport</option>
 							<?php foreach($sportResult as $sportRow): ?>
-								<option value="<?= $sportRow['Nome']?>"><?= $sportRow['Nome'] ?></option>
+								<option value="<?= $sportRow['Nome']?>"><?= htmlspecialchars($sportRow['Nome']) ?></option>
 							<?php endforeach; ?>
 						</select>
 						<button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Aggiungi</button>

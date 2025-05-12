@@ -2,6 +2,8 @@
 	include '../../utils/conn.php';
 	include '../../utils/verifyAndStartSession.php';
 
+	$ruoli = $_SESSION['ruoli'];
+
 	if(!in_array('Allenatore', $ruoli) && !in_array('Socio', $ruoli) && !in_array('Atleta', $ruoli)) {
 		die('Permessi insufficienti');
 	}

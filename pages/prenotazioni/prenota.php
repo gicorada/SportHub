@@ -78,7 +78,7 @@
 					<div>
 						<label for="filter-campo" class="mr-2 font-medium">Campo</label>
 						<select id="filter-campo" class="mt-2 p-2 border rounded-md">
-							<option value="" disabled>Seleziona Campo<option>
+							<option value="" disabled>Seleziona Campo</option>
 							<?php while($rowCampo = $resultCampo->fetch_assoc()): ?>
 								<option value="<?= $rowCampo['Codice'] ?>" <?= (($rowCampo['Codice'] == ($_GET['campo'] ?? '')) ? 'selected' : '')?>><?= htmlspecialchars($rowCampo['Codice']) ?></option>
 							<?php endwhile; ?>
@@ -89,7 +89,7 @@
 					<div>
 						<label for="filter-sport" class="mr-2 font-medium">Sport</label>
 						<select id="filter-sport" class="mt-2 p-2 border rounded-md">
-							<option value="" disabled>Seleziona Sport<option>
+							<option value="" disabled>Seleziona Sport</option>
 							<?php while($rowSport = $resultCampo->fetch_assoc()): ?>
 								<option value="<?= $rowSport['Sport'] ?>" <?= (($rowSport['Sport'] == ($_GET['sport'] ?? '')) ? 'selected' : '')?>><?= htmlspecialchars($rowSport['Sport']) ?></option>
 							<?php endwhile; ?>

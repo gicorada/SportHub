@@ -9,7 +9,7 @@
 	}
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		if(empty($_POST['atto']) || empty($_POST['dataInizio']) || empty($_POST['dataFine']) || empty($_POST['carica'])) {
+		if(empty($_POST['atto']) || empty($_POST['dataInizio']) || empty($_POST['carica'])) {
 			die("Necessario fornire i dati");
 		}
 

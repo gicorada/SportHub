@@ -35,11 +35,10 @@
 		$stmtAtto->bind_param("iissss", $protocollo, $anno, $data, $oggetto, $odg, $testo);
 
 		if ($stmtAtto->execute()) {
-			echo "<script>alert('Atto aggiunto con successo!');</script>";
 			header("Location: /pages/atti/visualizza.php");
 			exit();
 		} else {
-			echo "<script>alert('Errore durante l\'aggiunta dell\'atto.');</script>";
+			die('Errore durante l\'aggiunta dell\'atto.');
 		}
 
 		$stmtAtto->close();

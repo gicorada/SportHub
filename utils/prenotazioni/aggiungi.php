@@ -24,7 +24,7 @@
 
 		// INIZIO DEI CONTROLLI
 		if($inizio > $fine) {
-			echo "<script>alert('La data di inizio deve essere precedente alla data di fine.');</script>";
+			die('La data di inizio deve essere precedente alla data di fine.');
 			exit();
 		}
 

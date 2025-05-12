@@ -19,11 +19,10 @@
 		$stmt->bind_param("s", $codice);
 
 		if ($stmt->execute()) {
-			echo "<script>alert('Assemblea rimossa con successo!');</script>";
 			header("Location: /pages/assemblee/gestisci.php");
 			exit();
 		} else {
-			echo "<script>alert('Errore durante la rimozione dell\'assemblea.');</script>";
+			die('Errore durante la rimozione dell\'assemblea.');
 		}
 
 		$stmt->close();

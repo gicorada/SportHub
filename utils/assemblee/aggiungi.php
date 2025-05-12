@@ -31,11 +31,10 @@
 
 		// Esegui la query
 		if ($stmt->execute()) {
-			echo "<script>alert('Assemblea aggiunta con successo!');</script>";
 			header("Location: /pages/assemblee/gestisci.php");
 			exit();
 		} else {
-			echo "<script>alert('Errore durante l\'aggiunta dell\'assemblea.');</script>";
+			die('Errore durante l\'aggiunta dell\'assemblea.');
 		}
 
 		// Chiudi la connessione

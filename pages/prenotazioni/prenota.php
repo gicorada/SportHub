@@ -64,6 +64,7 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/@event-calendar/build@4.0.3/dist/event-calendar.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray-50">
 	<?php 
@@ -140,7 +141,7 @@
 			<div class="mb-4">
 				<label for="campo" class="block text-lg font-semibold">Attività</label>
 				<select name="attivita" id="attivita" required class="mt-2 p-3 border rounded-md w-full">
-					<option value="">-- Seleziona --</option>
+					<option value="" disabled>-- Seleziona --</option>
 					<?php while($rowAttivita = $resultAttivita->fetch_assoc()): ?>
 						<option value="<?= $rowAttivita['Nome'] ?>"><?= htmlspecialchars($rowAttivita['Nome']) ?></option>
 					<?php endwhile; ?>

@@ -83,8 +83,7 @@
 			<?php if(in_array('Atleta', $ruoli)): ?>
 				<div>
 					<label for="tipoatleta" class="block text-sm font-medium text-gray-700">Tipo Atleta</label>
-					<select name="tipoatleta" id="tipoatleta"
-						class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+					<select name="tipoatleta" id="tipoatleta" class="mt-2 p-2 border rounded-md">
 						<option value="Agonistico" <?= (($tipoatleta == 'Agonistico') ? 'selected' : '')?>>Agonistico</option>
 						<option value="Amatoriale" <?= (($tipoatleta == 'Amatoriale') ? 'selected' : '')?>>Amatoriale</option>
 					</select>
@@ -92,10 +91,9 @@
 				
 				<div>
 					<label for="sportpraticato" class="block text-sm font-medium text-gray-700">Sport Praticato</label>
-					<select name="sportpraticato" id="sportpraticato"
-						class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+					<select name="sportpraticato" id="sportpraticato" class="mt-2 p-2 border rounded-md">
 						<?php foreach($sportResult as $sportRow): ?>
-							<option value="<?= $sportRow['Nome']?>" <?= (($sportpraticato == $sportRow['Nome']) ? 'selected' : '')?>><?= $sportRow['Nome'] ?></option>
+							<option value="<?= $sportRow['Nome']?>" <?= (($sportpraticato == $sportRow['Nome']) ? 'selected' : '')?>><?= htmlspecialchars($sportRow['Nome']) ?></option>
 						<?php endforeach; ?>
 					</select>
 				</div>

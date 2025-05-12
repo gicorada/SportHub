@@ -64,11 +64,10 @@
 
 		// Esegui la query
 		if ($stmtAtto->execute()) {
-			echo "<script>alert('Nomina aggiunta con successo!');</script>";
 			header("Location: /pages/atti/visualizza.php");
 			exit();
 		} else {
-			echo "<script>alert('Errore durante l\'aggiunta della nomina.');</script>";
+			die('Errore durante l\'aggiunta della nomina.');
 		}
 
 		// Chiudi la connessione

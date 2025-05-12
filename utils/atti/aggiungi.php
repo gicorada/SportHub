@@ -8,7 +8,7 @@
 	}
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		if(empty($_POST['annno']) || empty($_POST['data']) || empty($_POST['oggetto']) || empty($_POST['odg']) || empty($_POST['testo'])) {
+		if(empty($_POST['anno']) || empty($_POST['data']) || empty($_POST['oggetto']) || empty($_POST['odg']) || empty($_POST['testo'])) {
 			die("Necessario fornire i dati");
 		}
 
